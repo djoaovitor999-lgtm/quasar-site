@@ -35,7 +35,7 @@ const QuasarRegistration = () => {
               Garanta sua Vaga
             </h2>
             <p className="text-muted-foreground">
-              Realize sua inscrição abaixo sem sair do site. Processo 100% seguro via Even3.
+              Registre seu interesse em participar do II Encontro Quasar.
             </p>
           </div>
 
