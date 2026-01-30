@@ -1,240 +1,53 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useToast } from "@/hooks/use-toast";
-
-// --- CONFIGURAÇÃO DO GOOGLE FORMS ---
-const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSe3BVoAk0HBdj7NXX_6mxuwoTFlIQNBEYltZj59IVSFFeH7xw/formResponse";
-
-const FIELD_IDS = {
-  name: "entry.1506848749",
-  email: "entry.1884448240",
-  institution: "entry.618501221",
-  role: "entry.688746124",
-  participation: "entry.1209571215",
-  message: "entry.618321684"
-};
+import { useEffect } from "react";
 
 const QuasarRegistration = () => {
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   
-  // Estado para erros
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  useEffect(() => {
+    // --- CONFIGURAÇÃO DO WIDGET ---
+    // 1. Cole aqui a URL que está no 'src' do script que a Even3 forneceu
+    const scriptUrl = "https://www.even3.com.br/widget/js?e=ii-encontro-quasar-688507&t=ticket&lang=pt"; 
+    // DICA: O parâmetro 'e=' deve ser o link do seu evento (ii-encontro-quasar)
+    // O parâmetro 't=' define o tipo. Para inscrição, geralmente é 'ticket' ou 'registration'.
+    // Se o seu código da Even3 for diferente, substitua a URL acima inteira.
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    institution: "",
-    role: "",
-    participation: "",
-    message: ""
-  });
+    // Verifica se o script já existe para evitar duplicidade
+    const existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
 
-  // Validação manual
-  const validate = () => {
-    const newErrors: Record<string, string> = {};
+    if (!existingScript) {
+      const script = document.createElement("script");
+      script.src = scriptUrl;
+      script.async = true;
+      document.body.appendChild(script);
 
-    if (!formData.name.trim()) newErrors.name = "Nome é obrigatório.";
-    if (!formData.email.trim()) {
-      newErrors.email = "E-mail é obrigatório.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "E-mail inválido.";
+      return () => {
+        // Limpeza opcional: remove o script ao sair da página
+        // document.body.removeChild(script); 
+      };
     }
-    if (!formData.institution.trim()) newErrors.institution = "Instituição é obrigatória.";
-    if (!formData.participation) newErrors.participation = "Selecione uma modalidade.";
-
-    setErrors(newErrors);
-    return newErrors;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Valida antes de enviar
-    const currentErrors = validate();
-
-    if (Object.keys(currentErrors).length > 0) {
-      // Scroll para o primeiro erro
-      const firstErrorField = Object.keys(currentErrors)[0];
-      const element = document.getElementById(firstErrorField);
-
-      if (element) {
-        const yOffset = -120;
-        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-        
-        if (element.tagName === 'INPUT') element.focus();
-      }
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const googleFormData = new FormData();
-      googleFormData.append(FIELD_IDS.name, formData.name);
-      googleFormData.append(FIELD_IDS.email, formData.email);
-      googleFormData.append(FIELD_IDS.institution, formData.institution);
-      googleFormData.append(FIELD_IDS.role, formData.role);
-      googleFormData.append(FIELD_IDS.participation, formData.participation);
-      googleFormData.append(FIELD_IDS.message, formData.message);
-
-      await fetch(FORM_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body: googleFormData,
-      });
-
-      // --- ATUALIZAÇÃO: Mensagem Verde e Centralizada ---
-      toast({
-        title: "Pré-inscrição recebida!",
-        description: "Seus dados foram salvos com sucesso.",
-        variant: "success", // Usa a nova variante
-        className: "justify-center [&>div]:text-center", // Centraliza o container e o texto interno
-      });
-      // -------------------------------------------------
-
-      setFormData({
-        name: "",
-        email: "",
-        institution: "",
-        role: "",
-        participation: "",
-        message: ""
-      });
-      setErrors({});
-
-    } catch (error) {
-      console.error("Erro ao enviar:", error);
-      toast({
-        title: "Erro no envio",
-        description: "Houve um problema ao enviar sua inscrição. Tente novamente.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // Componente auxiliar de erro
-  const ErrorMessage = ({ message }: { message?: string }) => {
-    if (!message) return null;
-    return <span className="text-red-500 text-xs mt-1 block font-medium">{message}</span>;
-  };
+  }, []);
 
   return (
     <section id="inscricao" className="py-24 bg-background">
       <div className="container mx-auto px-6">
-        <div className="max-w-xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light text-foreground text-center mb-4">
-            Pré-Inscrição
-          </h2>
-          <p className="text-muted-foreground text-center mb-12">
-            Registre seu interesse em participar do II Encontro Quasar
-          </p>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-light text-foreground mb-4">
+              Garanta sua Vaga
+            </h2>
+            <p className="text-muted-foreground">
+              Realize sua inscrição abaixo sem sair do site. Processo 100% seguro via Even3.
+            </p>
+          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-            
-            <div className="space-y-2">
-              <Label htmlFor="name" className={errors.name ? "text-red-500" : ""}>Nome Completo *</Label>
-              <Input
-                id="name"
-                value={formData.name}
-                onChange={(e) => {
-                  setFormData({ ...formData, name: e.target.value });
-                  if (errors.name) setErrors({ ...errors, name: "" });
-                }}
-                className={errors.name ? "border-red-500 focus-visible:ring-red-500" : "bg-background border-border"}
-              />
-              <ErrorMessage message={errors.name} />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email" className={errors.email ? "text-red-500" : ""}>E-mail *</Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => {
-                  setFormData({ ...formData, email: e.target.value });
-                  if (errors.email) setErrors({ ...errors, email: "" });
-                }}
-                className={errors.email ? "border-red-500 focus-visible:ring-red-500" : "bg-background border-border"}
-              />
-              <ErrorMessage message={errors.email} />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="institution" className={errors.institution ? "text-red-500" : ""}>Instituição/Empresa *</Label>
-              <Input
-                id="institution"
-                value={formData.institution}
-                onChange={(e) => {
-                  setFormData({ ...formData, institution: e.target.value });
-                  if (errors.institution) setErrors({ ...errors, institution: "" });
-                }}
-                className={errors.institution ? "border-red-500 focus-visible:ring-red-500" : "bg-background border-border"}
-              />
-              <ErrorMessage message={errors.institution} />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="role">Cargo/Função</Label>
-              <Input
-                id="role"
-                value={formData.role}
-                onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                className="bg-background border-border"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="participation" className={errors.participation ? "text-red-500" : ""}>Modalidade de Participação *</Label>
-              <div id="participation">
-                <Select
-                  value={formData.participation}
-                  onValueChange={(value) => {
-                    setFormData({ ...formData, participation: value });
-                    if (errors.participation) setErrors({ ...errors, participation: "" });
-                  }}
-                >
-                  <SelectTrigger className={errors.participation ? "border-red-500 focus:ring-red-500" : "bg-background border-border"}>
-                    <SelectValue placeholder="Selecione uma opção" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Presencial">Presencial</SelectItem>
-                    <SelectItem value="Online">Online</SelectItem>
-                    <SelectItem value="Ambos">Ambos (se disponível)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <ErrorMessage message={errors.participation} />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="message">Mensagem (opcional)</Label>
-              <Textarea
-                id="message"
-                rows={4}
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="bg-background border-border resize-none"
-                placeholder="Conte-nos sobre seu interesse no evento..."
-              />
-            </div>
-
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-foreground text-background hover:bg-foreground/90"
-            >
-              {isSubmitting ? "Enviando..." : "Enviar Pré-Inscrição"}
-            </Button>
-          </form>
+          {/* Área do Widget */}
+          <div className="bg-card border border-border rounded-xl p-4 md:p-8 shadow-sm min-h-[400px]">
+            {/* IMPORTANTE: O ID abaixo deve ser IGUAL ao que está na <div> do código da Even3.
+              Geralmente é "even3-widget-ticket" ou "even3-widget-registration".
+              Se não aparecer nada, verifique este ID no painel da Even3.
+            */}
+            <div id="even3-widget-ticket"></div>
+          </div>
+          
         </div>
       </div>
     </section>
