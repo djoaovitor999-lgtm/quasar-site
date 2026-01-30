@@ -3,15 +3,20 @@ import logoPMJP from "@/assets/logo-pmjp.png";
 import logoUFPB from "@/assets/logo-ufpb.png";
 import logoQuasar from "@/assets/logo-quasar-branca.png";
 
+// IMPORTS TEMPORÁRIOS - Substitua pelos nomes corretos dos seus arquivos na pasta assets
+// Exemplo: import logoMarca1 from "@/assets/google.png";
+import logoMarca1 from "@/assets/logo-ufpb.png"; // Placeholder: Substitua este import
+import logoMarca2 from "@/assets/logo-ufpb.png"; // Placeholder: Substitua este import
+
 const QuasarFooter = () => {
   return (
-    <footer className="bg-foreground text-background">
+    <footer className="bg-black text-white">
       {/* Partners Section */}
       <div className="py-16">
         <div className="container mx-auto px-6">
           {/* Apoio */}
           <div className="mb-12">
-            <p className="text-sm text-background/60 text-center mb-8 tracking-widest uppercase">
+            <p className="text-sm text-white/60 text-center mb-8 tracking-widest uppercase">
               Apoio
             </p>
             <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16">
@@ -30,15 +35,29 @@ const QuasarFooter = () => {
                 alt="UFPB" 
                 className="h-14 md:h-20 w-auto opacity-90"
               />
+              
+              {/* --- NOVAS MARCAS ADICIONADAS AQUI --- */}
+              <img 
+                src={logoMarca1} 
+                alt="venturus" 
+                className="h-12 md:h-16 w-auto opacity-90" 
+              />
+              <img 
+                src={logoMarca2} 
+                alt="aws" 
+                className="h-12 md:h-16 w-auto opacity-90" 
+              />
+              {/* ------------------------------------- */}
+
             </div>
           </div>
 
           {/* Divider */}
-          <div className="w-24 h-px bg-background/20 mx-auto mb-12" />
+          <div className="w-24 h-px bg-white/20 mx-auto mb-12" />
 
           {/* Realização */}
           <div>
-            <p className="text-sm text-background/60 text-center mb-8 tracking-widest uppercase">
+            <p className="text-sm text-white/60 text-center mb-8 tracking-widest uppercase">
               Realização
             </p>
             <div className="flex justify-center">
@@ -53,9 +72,9 @@ const QuasarFooter = () => {
       </div>
 
       {/* Copyright */}
-      <div className="border-t border-background/10 py-6">
+      <div className="border-t border-white/10 py-6">
         <div className="container mx-auto px-6">
-          <p className="text-sm text-background/40 text-center">
+          <p className="text-sm text-white/40 text-center">
             © 2026 II Encontro Quasar. Todos os direitos reservados.
           </p>
         </div>
