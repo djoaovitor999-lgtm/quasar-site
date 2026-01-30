@@ -143,7 +143,7 @@ const QuasarRegistration = () => {
             
             {/* Nome */}
             <div className="space-y-2">
-              <Label htmlFor="name" className={errors.name ? "text-red-500" : ""}>Nome Completo (1) *</Label>
+              <Label htmlFor="name" className={errors.name ? "text-red-500" : ""}>Nome Completo *</Label>
               <Input
                 id="name"
                 value={formData.name}
