@@ -63,8 +63,8 @@ const speakers: Speaker[] = [
   {
     id: 6,
     name: "Federico Holik",
-    title: "PhD Student",
-    institution: "Perimeter Institute",
+    title: "Investigador Adjunto",
+    institution: "UNLP",
     image: FedericoHolik,
     bio: "Doutorado em Física pela Universidade de Buenos Aires. Especialista em Informação Quântica, Fundamentos da Mecânica Quântica e Lógica Quântica. Atua como investigador no CONICET (Argentina).",
   },
