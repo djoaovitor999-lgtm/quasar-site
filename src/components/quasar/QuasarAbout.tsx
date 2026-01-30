@@ -10,7 +10,7 @@ const QuasarAbout = () => {
           </h2>
           <div className="space-y-6 text-muted-foreground leading-relaxed">
             <p>
-              O <strong>II Encontro Quasar</strong> será realizado em João Pessoa (PB), na Universidade Federal da Paraíba (UFPB). 
+              O <strong>II Encontro Quasar</strong> será realizado em João Pessoa (PB), no auditório da Estacão Ciências. 
               Nesta segunda edição, o evento consolida o Encontro Quasar como um <strong>espaço de formação, debate técnico 
               e articulação científica</strong> em tecnologias quânticas, acompanhando a <strong>rápida expansão da área</strong> no cenário 
               nacional e internacional e conectando pesquisa, capacitação e construção de redes.
@@ -19,7 +19,7 @@ const QuasarAbout = () => {
               Esta edição se insere diretamente no <strong>fortalecimento do ecossistema local de computação quântica</strong>, 
               em diálogo com iniciativas estratégicas como o CIQUANTA (International Centre for Quantum Computing), 
               que vem impulsionando <strong>infraestrutura, colaboração e visibilidade internacional</strong> para a pesquisa na Paraíba. 
-              No mesmo espírito, o evento também se articula com a Liga de Computação Quântica (Liga), ampliando o 
+              No mesmo espírito, o evento também se articula com a QUASAR (Quantum Software Applications Research League), ampliando o 
               engajamento de estudantes e jovens pesquisadores, organizando <strong>trilhas de aprendizagem, atividades 
               formativas e espaços de participação ativa</strong> ao longo da programação.
             </p>
