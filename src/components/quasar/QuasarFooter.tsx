@@ -5,8 +5,8 @@ import logoQuasar from "@/assets/logo-quasar-branca.png";
 
 // IMPORTS TEMPORÁRIOS - Substitua pelos nomes corretos dos seus arquivos na pasta assets
 // Exemplo: import logoMarca1 from "@/assets/google.png";
-import logoMarca1 from "@/assets/logo-ufpb.png"; // Placeholder: Substitua este import
-import logoMarca2 from "@/assets/logo-ufpb.png"; // Placeholder: Substitua este import
+import LogoVenturus from "@/assets/venturus.png"; // Placeholder: Substitua este import
+import LogoAWS from "@/assets/aws.png"; // Placeholder: Substitua este import
 
 const QuasarFooter = () => {
   return (
@@ -38,13 +38,13 @@ const QuasarFooter = () => {
               
               {/* --- NOVAS MARCAS ADICIONADAS AQUI --- */}
               <img 
-                src={logoMarca1} 
-                alt="venturus" 
+                src={LogoVenturus} 
+                alt="Venturus" 
                 className="h-12 md:h-16 w-auto opacity-90" 
               />
               <img 
-                src={logoMarca2} 
-                alt="aws" 
+                src={LogoAWS} 
+                alt="AWS" 
                 className="h-12 md:h-16 w-auto opacity-90" 
               />
               {/* ------------------------------------- */}
