@@ -1,58 +1,38 @@
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ExternalLink, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
-// --- CONFIGURAÇÃO DO EVEN3 ---
-// O identificador é a parte final da URL do seu evento (ex: even3.com.br/ii-encontro-quasar)
-const EVENT_CODE = "ii-encontro-quasar-688507"; 
-const WIDGET_TYPE = "ticket"; // 'ticket' é o padrão para inscrições
+// --- CONFIGURAÇÃO ---
+// ATENÇÃO: Coloque aqui o identificador que aparece na URL principal do evento
+// Exemplo: se a URL é even3.com.br/nome-do-evento, coloque "nome-do-evento"
+const EVENT_IDENTIFIER = "ii-encontro-quasar-688507"; 
 
 const QuasarRegistration = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Função para carregar o script do Even3 dinamicamente
-    const loadEven3Widget = () => {
-      try {
-        // Verifica se o script já existe para evitar duplicação
-        const existingScript = document.getElementById("even3-script");
-        if (existingScript) return;
+    // 1. Verifica se o script já foi carregado para evitar duplicação
+    const scriptId = "even3-widget-script";
+    if (document.getElementById(scriptId)) {
+        setLoading(false);
+        return;
+    }
 
-        const script = document.createElement("script");
-        script.id = "even3-script";
-        script.src = `https://www.even3.com.br/widget/js?e=${EVENT_CODE}&t=${WIDGET_TYPE}&lang=pt`;
-        script.async = true;
-        
-        // Callback quando o script carrega com sucesso
-        script.onload = () => {
-          setIsLoading(false);
-        };
+    // 2. Cria o script do Widget da Even3
+    const script = document.createElement("script");
+    script.id = scriptId;
+    script.src = `https://www.even3.com.br/widget/js?e=${EVENT_IDENTIFIER}&t=ticket&lang=pt`;
+    script.async = true;
 
-        // Callback de erro
-        script.onerror = () => {
-          console.error("Erro ao carregar widget do Even3");
-          setHasError(true);
-          setIsLoading(false);
-        };
+    // 3. Gerencia o estado de carregamento
+    script.onload = () => setLoading(false);
+    
+    // 4. Adiciona ao corpo do documento
+    document.body.appendChild(script);
 
-        document.body.appendChild(script);
-      } catch (error) {
-        console.error("Erro na integração Even3:", error);
-        setHasError(true);
-        setIsLoading(false);
-      }
-    };
-
-    // Pequeno delay para garantir que o DOM (a div alvo) esteja pronto
-    const timer = setTimeout(loadEven3Widget, 500);
-
+    // Limpeza (opcional, dependendo de como o Even3 se comporta ao sair da página)
     return () => {
-      clearTimeout(timer);
-      // Opcional: remover o script ao desmontar o componente, 
-      // mas alguns widgets preferem persistir se o usuário navegar e voltar.
-      // const script = document.getElementById("even3-script");
-      // if (script) document.body.removeChild(script);
+      // Geralmente widgets de terceiros preferem não ser removidos e lidos repetidamente
+      // mas se precisar, pode remover o script aqui.
     };
   }, []);
 
@@ -60,54 +40,38 @@ const QuasarRegistration = () => {
     <section id="inscricao" className="py-24 bg-background">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12 space-y-4">
+          
+          <div className="text-center mb-10 space-y-4">
             <h2 className="text-3xl md:text-4xl font-light text-foreground">
               Inscrição
             </h2>
-            <p className="text-muted-foreground">
-              Registre seu interesse em participar do II Encontro Quasar.
+            <p className="text-muted-foreground text-lg">
+              Garanta sua participação diretamente por aqui. Ambiente seguro Even3.
             </p>
           </div>
 
-          <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm min-h-[400px] relative">
+          {/* Área do Widget */}
+          <div className="relative min-h-[500px] border border-border rounded-xl bg-card overflow-hidden shadow-sm">
             
-            {/* Estado de Carregamento */}
-            {isLoading && !hasError && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-card/80 z-10">
-                <Loader2 className="h-10 w-10 animate-spin text-primary mb-4" />
-                <p className="text-muted-foreground">Carregando formulário...</p>
+            {/* Loading Spinner */}
+            {loading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-20">
+                <div className="flex flex-col items-center gap-2">
+                  <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                  <span className="text-sm text-muted-foreground">Carregando formulário...</span>
+                </div>
               </div>
             )}
 
-            {/* Container do Widget - O ID deve corresponder ao esperado pelo script do Even3 */}
-            <div id={`even3-widget-${WIDGET_TYPE}`} className="w-full"></div>
-
-            {/* Fallback de Erro ou Bloqueio de Script */}
-            {hasError && (
-              <div className="flex flex-col items-center justify-center p-12 text-center space-y-6">
-                <p className="text-muted-foreground">
-                  Não foi possível carregar o formulário aqui (pode ser um bloqueador de anúncios).
-                </p>
-                <Button asChild size="lg">
-                  <a 
-                    href={`https://www.even3.com.br/${EVENT_CODE}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2"
-                  >
-                    Acessar Página de Inscrição Oficial
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                </Button>
-              </div>
-            )}
+            {/* O ID deve ser EXATAMENTE este para o script do Even3 encontrar a div */}
+            <div id="even3-widget-ticket"></div>
             
           </div>
-          
-          <div className="text-center mt-6">
-            <p className="text-xs text-muted-foreground">
-              Ambiente seguro processado por Even3. Seus dados estão protegidos.
-            </p>
+
+          <div className="mt-4 text-center">
+             <p className="text-xs text-muted-foreground">
+               Caso o formulário não carregue, verifique se você possui bloqueadores de anúncios ativos.
+             </p>
           </div>
 
         </div>
