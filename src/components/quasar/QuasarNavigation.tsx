@@ -18,6 +18,19 @@ const QuasarNavigation = ({ isHeroVisible = true }: QuasarNavigationProps) => {
     { href: "#inscricao", label: "Inscrição" },
   ];
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const id = href.replace("#", "");
+    const element = document.getElementById(id);
+    if (element) {
+      // Ajuste o offset para descontar a altura da navbar fixa (aprox 80px)
+      const yOffset = -80; 
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+    setIsMenuOpen(false); // Fecha o menu mobile ao clicar
+  };
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isHeroVisible ? "bg-transparent" : "bg-background/95 backdrop-blur-sm border-b border-border"
@@ -38,7 +51,8 @@ const QuasarNavigation = ({ isHeroVisible = true }: QuasarNavigationProps) => {
             <a
               key={link.href}
               href={link.href}
-              className={`text-sm font-medium transition-colors duration-200 ${
+              onClick={(e) => handleScroll(e, link.href)}
+              className={`text-sm font-medium transition-colors duration-200 cursor-pointer ${
                 isHeroVisible 
                   ? "text-white/90 hover:text-white" 
                   : "text-muted-foreground hover:text-foreground"
@@ -71,8 +85,8 @@ const QuasarNavigation = ({ isHeroVisible = true }: QuasarNavigationProps) => {
               <a
                 key={link.href}
                 href={link.href}
-                className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => handleScroll(e, link.href)}
+                className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer"
               >
                 {link.label}
               </a>
