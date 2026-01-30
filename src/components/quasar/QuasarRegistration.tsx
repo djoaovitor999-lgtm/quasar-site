@@ -11,12 +11,12 @@ const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSe3BVoAk0HBdj7
 
 // TROQUE pelos entry.X de cada campo do seu formulário Google
 const ENTRY = {
-  name: "entry.973886953",
-  email: "entry.1642407322",
-  institution: "entry.980454417",
-  role: "entry.1273778173",
-  participation: "entry.1981685151",
-  message: "entry.1232827003",
+  name: "entry.1506848749",
+  email: "entry.1884448240",
+  institution: "entry.618501221",
+  role: "entry.688746124",
+  participation: "entry.1209571215",
+  message: "entry.618321684",
 };
 
 const QuasarRegistration = () => {
