@@ -62,7 +62,7 @@ const speakers: Speaker[] = [
   },
   {
     id: 6,
-    name: "Marina Ansanelli",
+    name: "Federico Holik",
     title: "PhD Student",
     institution: "Perimeter Institute",
     image: FedericoHolik,
