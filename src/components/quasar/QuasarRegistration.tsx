@@ -7,15 +7,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 
 // --- CONFIGURAÇÃO DO GOOGLE FORMS ---
+// 1. Coloque a URL de "action" do seu formulário aqui.
+//    (Pegue o link de visualização do form e troque '/viewform' por '/formResponse')
 const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSe3BVoAk0HBdj7NXX_6mxuwoTFlIQNBEYltZj59IVSFFeH7xw/formResponse";
 
+// 2. Coloque os IDs dos campos (entry.XXXXXX) que você pegou no link preenchido
 const FIELD_IDS = {
-  name: "entry.1506848749",
-  email: "entry.1884448240",
-  institution: "entry.618501221",
-  role: "entry.688746124",
-  participation: "entry.1209571215",
-  message: "entry.618321684"
+  name: "entry.1506848749",        // Substitua pelo ID do campo Nome
+  email: "entry.1884448240",       // Substitua pelo ID do campo Email
+  institution: "entry.618501221", // Substitua pelo ID do campo Instituição
+  role: "entry.688746124",        // Substitua pelo ID do campo Cargo
+  participation: "entry.1209571215", // Substitua pelo ID da Modalidade
+  message: "entry.618321684"      // Substitua pelo ID da Mensagem
 };
 
 const QuasarRegistration = () => {
@@ -30,39 +33,12 @@ const QuasarRegistration = () => {
     message: ""
   });
 
-  // Função de validação local para dar feedback imediato
-  const validateForm = () => {
-    if (!formData.name.trim()) return "Por favor, preencha o seu nome completo.";
-    
-    // Validação simples de formato de e-mail
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email.trim() || !emailRegex.test(formData.email)) {
-      return "Por favor, insira um endereço de e-mail válido.";
-    }
-
-    if (!formData.institution.trim()) return "Por favor, informe sua Instituição ou Empresa.";
-    if (!formData.participation) return "Selecione uma modalidade de participação (Presencial, Online, etc).";
-    
-    return null; // Sem erros
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // 1. Executa a validação antes de qualquer envio
-    const validationError = validateForm();
-    if (validationError) {
-      toast({
-        title: "Atenção: Campos obrigatórios",
-        description: validationError,
-        variant: "destructive", // Vermelho para chamar atenção
-      });
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
+      // Criação dos dados no formato que o Google Forms espera
       const googleFormData = new FormData();
       googleFormData.append(FIELD_IDS.name, formData.name);
       googleFormData.append(FIELD_IDS.email, formData.email);
@@ -71,17 +47,20 @@ const QuasarRegistration = () => {
       googleFormData.append(FIELD_IDS.participation, formData.participation);
       googleFormData.append(FIELD_IDS.message, formData.message);
 
+      // Envio para o Google Forms
+      // mode: "no-cors" é necessário porque o Google não retorna um cabeçalho CORS padrão.
+      // Isso significa que não conseguiremos ler a resposta de sucesso do servidor,
+      // mas o envio funcionará se os IDs estiverem corretos.
       await fetch(FORM_URL, {
         method: "POST",
         mode: "no-cors",
         body: googleFormData,
       });
 
-      // Sucesso
+      // Assumimos sucesso se não houve erro de rede
       toast({
-        title: "Inscrição Enviada!",
-        description: "Seus dados foram registrados com sucesso. Em breve entraremos em contato.",
-        className: "bg-green-500 text-white border-none", // Estilo opcional para destacar sucesso
+        title: "Pré-inscrição recebida!",
+        description: "Seus dados foram salvos com sucesso.",
       });
 
       // Limpar formulário
@@ -96,11 +75,9 @@ const QuasarRegistration = () => {
 
     } catch (error) {
       console.error("Erro ao enviar:", error);
-      
-      // Tratamento de erro com orientações do que fazer
       toast({
-        title: "Falha no Envio",
-        description: "Não foi possível conectar ao servidor. Verifique sua internet e tente novamente. Se o erro persistir, contate a organização do evento.",
+        title: "Erro no envio",
+        description: "Houve um problema ao enviar sua inscrição. Tente novamente.",
         variant: "destructive"
       });
     } finally {
@@ -124,11 +101,10 @@ const QuasarRegistration = () => {
               <Label htmlFor="name">Nome Completo *</Label>
               <Input
                 id="name"
-                // Removemos o 'required' nativo para usar nossa validação customizada mais descritiva
+                required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="bg-background border-border"
-                placeholder="Ex: João da Silva"
               />
             </div>
 
@@ -137,10 +113,10 @@ const QuasarRegistration = () => {
               <Input
                 id="email"
                 type="email"
+                required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="bg-background border-border"
-                placeholder="exemplo@email.com"
               />
             </div>
 
@@ -148,10 +124,10 @@ const QuasarRegistration = () => {
               <Label htmlFor="institution">Instituição/Empresa *</Label>
               <Input
                 id="institution"
+                required
                 value={formData.institution}
                 onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
                 className="bg-background border-border"
-                placeholder="Ex: UFPB / Empresa X"
               />
             </div>
 
@@ -162,7 +138,6 @@ const QuasarRegistration = () => {
                 value={formData.role}
                 onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                 className="bg-background border-border"
-                placeholder="Ex: Estudante, Pesquisador, Desenvolvedor"
               />
             </div>
 
@@ -191,7 +166,7 @@ const QuasarRegistration = () => {
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 className="bg-background border-border resize-none"
-                placeholder="Conte-nos sobre seu interesse ou dúvidas..."
+                placeholder="Conte-nos sobre seu interesse no evento..."
               />
             </div>
 
