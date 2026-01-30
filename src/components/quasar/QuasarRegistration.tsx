@@ -22,7 +22,7 @@ const QuasarRegistration = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  // Estado para armazenar os erros de validação
+  // Estado para erros
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [formData, setFormData] = useState({
@@ -34,7 +34,7 @@ const QuasarRegistration = () => {
     message: ""
   });
 
-  // Função de validação
+  // Validação manual
   const validate = () => {
     const newErrors: Record<string, string> = {};
 
@@ -54,11 +54,11 @@ const QuasarRegistration = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Executa a validação
+    // Valida antes de enviar
     const currentErrors = validate();
 
-    // Se houver erros, interrompe o envio e faz o scroll
     if (Object.keys(currentErrors).length > 0) {
+      // Scroll para o primeiro erro
       const firstErrorField = Object.keys(currentErrors)[0];
       const element = document.getElementById(firstErrorField);
 
@@ -67,9 +67,7 @@ const QuasarRegistration = () => {
         const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: y, behavior: 'smooth' });
         
-        if (element.tagName === 'INPUT') {
-            element.focus();
-        }
+        if (element.tagName === 'INPUT') element.focus();
       }
       return;
     }
@@ -91,13 +89,14 @@ const QuasarRegistration = () => {
         body: googleFormData,
       });
 
-      // --- MENSAGEM DE SUCESSO VERDE E SUTIL ---
+      // --- ATUALIZAÇÃO: Mensagem Verde e Centralizada ---
       toast({
-        title: "Inscrição Recebida",
-        description: "Seus dados foram enviados com sucesso.",
-        className: "bg-green-50 border-green-200 text-green-800", // Estilo verde suave
+        title: "Pré-inscrição recebida!",
+        description: "Seus dados foram salvos com sucesso.",
+        variant: "success", // Usa a nova variante
+        className: "justify-center [&>div]:text-center", // Centraliza o container e o texto interno
       });
-      // -----------------------------------------
+      // -------------------------------------------------
 
       setFormData({
         name: "",
@@ -121,6 +120,7 @@ const QuasarRegistration = () => {
     }
   };
 
+  // Componente auxiliar de erro
   const ErrorMessage = ({ message }: { message?: string }) => {
     if (!message) return null;
     return <span className="text-red-500 text-xs mt-1 block font-medium">{message}</span>;
