@@ -33,7 +33,7 @@ const QuasarFooter = () => {
               <img 
                 src={logoUFPB} 
                 alt="UFPB" 
-                className="h-14 md:h-20 w-auto opacity-90"
+                className="h-16 md:h-24 w-auto opacity-90"
               />
               
               {/* --- NOVAS MARCAS ADICIONADAS AQUI --- */}
@@ -45,7 +45,7 @@ const QuasarFooter = () => {
               <img 
                 src={LogoAWS} 
                 alt="AWS" 
-                className="h-12 md:h-16 w-auto opacity-90" 
+                className="h-10 md:h-14 w-auto opacity-90" 
               />
               {/* ------------------------------------- */}
 
