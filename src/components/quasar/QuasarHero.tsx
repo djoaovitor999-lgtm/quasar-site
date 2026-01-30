@@ -1,6 +1,17 @@
 import estacaoCiencias from "@/assets/estacao-ciencias.jpg";
 
 const QuasarHero = () => {
+  
+  // --- CORREÇÃO: Função de Rolagem Suave ---
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const element = document.getElementById("inscricao");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  // ----------------------------------------
+
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -25,7 +36,8 @@ const QuasarHero = () => {
         </p>
         <a 
           href="#inscricao"
-          className="inline-block bg-white text-foreground px-8 py-3 text-sm font-medium hover:bg-white/90 transition-colors duration-200 reveal-delayed"
+          onClick={handleScroll} 
+          className="inline-block bg-white text-foreground px-8 py-3 text-sm font-medium hover:bg-white/90 transition-colors duration-200 reveal-delayed cursor-pointer"
         >
           Inscreva-se
         </a>
