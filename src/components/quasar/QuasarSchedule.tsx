@@ -31,8 +31,8 @@ const QuasarSchedule = () => {
       items: [
         { time: "09:00", titleKey: "checkin", type: "break" },
         { time: "09:45", titleKey: "opening", type: "ceremony" },
-        { time: "10:30", titleKey: "talk", speaker: "Ana Silva", type: "talk" },
-        { time: "11:15", titleKey: "talk", speaker: "Carlos Souza", type: "talk" },
+        { time: "10:30", titleKey: "talk", speaker: "...", type: "talk" },
+        { time: "11:15", titleKey: "talk", speaker: "...", type: "talk" },
         { time: "12:00", titleKey: "lunch", type: "break" },
         { time: "14:00", titleKey: "talk", speaker: "...", type: "talk" },
         { time: "14:45", titleKey: "talk", speaker: "...", type: "talk" },
