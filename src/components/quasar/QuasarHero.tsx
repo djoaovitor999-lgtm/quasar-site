@@ -35,7 +35,7 @@ const QuasarHero = () => {
             <img
               src={quasarLogo}
               alt="Quasar"
-              className="inline-block h-[0.7em] w-auto align-baseline drop-shadow-2xl"
+              className="inline-block h-[1.3em] w-auto align-baseline drop-shadow-2xl"
             />
             {t.hero.TitleSuffix}
           </span>
