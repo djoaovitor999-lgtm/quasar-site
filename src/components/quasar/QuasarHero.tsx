@@ -1,9 +1,9 @@
 import estacaoCiencias from "@/assets/estacao-ciencias.jpg";
 import quasarLogo from "@/assets/logo-quasar-branca.png";
-import { useLanguage } from "@/contexts/LanguageContext"; // Importe
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const QuasarHero = () => {
-  const { t } = useLanguage(); // Hook
+  const { t } = useLanguage();
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -15,7 +15,6 @@ const QuasarHero = () => {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* ... (código do background igual) ... */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105"
         style={{ backgroundImage: `url(${estacaoCiencias})` }}
@@ -26,7 +25,7 @@ const QuasarHero = () => {
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
           <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
           <p className="text-white/90 text-xs md:text-sm tracking-[0.2em] uppercase font-medium">
-            {t.hero.dateLocation} {/* Texto Traduzido */}
+            {t.hero.dateLocation}
           </p>
         </div>
 
@@ -36,7 +35,7 @@ const QuasarHero = () => {
             <img
               src={quasarLogo}
               alt="Quasar"
-              className="inline-block h-[0.7em] w-auto align-baseline drop-shadow-2xl"
+              className="inline-block h-[0.9em] w-auto align-baseline drop-shadow-2xl"
             />
             {t.hero.TitleSuffix}
           </span>
