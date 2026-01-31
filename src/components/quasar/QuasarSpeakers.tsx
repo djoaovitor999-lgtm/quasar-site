@@ -7,8 +7,9 @@ import fernandoBrandao from "@/assets/speakers/fernando-brandao.jpg";
 import amirCaldeira from "@/assets/speakers/amir-caldeira.jpg";
 import renatoPortugal from "@/assets/speakers/renato-portugal.jpg";
 import MarinaAnsanelli from '@/assets/speakers/marina-ansanelli.jpeg';
-import FedericoHolik from '@/assets/speakers/federico-holik.jpeg'; // Ajuste o nome do arquivo
-import DanielHaro from '@/assets/speakers/daniel-moraes.jpeg'; // Ajuste o nome do arquivo
+import FedericoHolik from '@/assets/speakers/federico-holik.jpeg'; 
+import DanielHaro from '@/assets/speakers/daniel-moraes.jpeg'; 
+import EricoTexeira from '@/assets/speakers/erico-texeira.jpeg';
 
 interface Speaker {
   id: number;
@@ -75,6 +76,14 @@ const speakers: Speaker[] = [
     institution: "Venturus",
     image: DanielHaro,
     bio: "Líder de Tecnologias Emergentes no Venturus. Foca na preparação de empresas para a era quântica (Quantum Readiness) e na construção de pontes entre a investigação científica e o mercado.",
+  },
+  {
+    id: 8,
+    name: "Erico Teixeira",
+    title: "Pesquisador",
+    institution: "Venturus",
+    image: EricoTexeira,
+    bio: "Investigador em Computação Quântica, com doutoramento em Química e mestrado em Ciência da Computação pela UFPE. Especialista em Química Computacional e Algoritmos Quânticos.",
   }
 ];
 
