@@ -39,7 +39,22 @@ export const translations = {
       description: "Confira a programação completa de palestras, painéis e atividades estratégicas previstas para o evento.",
       day1: "Dia 1",
       day2: "Dia 2",
-      detailsComingSoon: "Detalhes do evento em breve...",
+      // REMOVA detailsComingSoon e ADICIONE estas chaves:
+      modal: {
+        aboutActivity: "Sobre a atividade",
+        speaker: "Palestrante",
+        close: "Fechar Detalhes"
+      },
+      // Descrições genéricas ou específicas para cada chave
+      descriptions: {
+        checkin: "Recepção dos participantes, entrega de credenciais e materiais do evento. Aproveite este momento para um café de boas-vindas.",
+        opening: "Cerimônia oficial de abertura com representantes institucionais e apresentação da visão de futuro do Centro Internacional de Computação Quântica.",
+        talk: "Nesta sessão, especialistas apresentarão avanços recentes, metodologias inovadoras e casos de uso aplicados. Um momento de aprofundamento técnico e teórico.",
+        lunch: "Intervalo para almoço livre. Aproveite para explorar a gastronomia local e continuar as conversas com outros participantes.",
+        break: "Pausa estratégica para networking, café e troca de ideias entre os participantes e palestrantes.",
+        panel: "Debate interativo reunindo diferentes perspectivas sobre o tema central. Uma oportunidade para perguntas e construção coletiva de conhecimento.",
+        closing: "Encerramento oficial do evento, síntese dos principais aprendizados e apresentação dos próximos passos para a comunidade Quasar."
+      },
       items: {
         checkin: "Credenciamento",
         opening: "Quasar: Abertura Institucional",
@@ -107,7 +122,20 @@ export const translations = {
       description: "Explore the full schedule of talks, panels, and strategic activities planned for the event.",
       day1: "Day 1",
       day2: "Day 2",
-      detailsComingSoon: "Event details coming soon...",
+      modal: {
+        aboutActivity: "About the activity",
+        speaker: "Speaker",
+        close: "Close Details"
+      },
+      descriptions: {
+        checkin: "Participant reception, badge collection, and event materials distribution. Enjoy a welcome coffee.",
+        opening: "Official opening ceremony with institutional representatives and presentation of the future vision for the International Centre for Quantum Computing.",
+        talk: "In this session, experts will present recent advancements, innovative methodologies, and applied use cases. A moment for technical and theoretical deep dive.",
+        lunch: "Lunch break. Take this time to explore local cuisine and continue conversations with other attendees.",
+        break: "Strategic break for networking, coffee, and idea exchange between participants and speakers.",
+        panel: "Interactive debate gathering different perspectives on the central theme. An opportunity for Q&A and collective knowledge building.",
+        closing: "Official event closing, synthesis of key learnings, and presentation of next steps for the Quasar community."
+      },
       items: {
         checkin: "Check-in",
         opening: "Quasar: Institutional Opening",

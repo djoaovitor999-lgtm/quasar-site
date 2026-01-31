@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
-import { Clock, Coffee, Mic, Users, ArrowRight, Zap, Quote, X } from "lucide-react";
+import { Clock, Coffee, Mic, Users, ArrowRight, Zap, Quote, X, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 import QuasarLogo from "@/assets/quasar.png";
-import { useLanguage } from "@/contexts/LanguageContext"; // Importe
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ScheduleItem {
   time: string;
-  titleKey: string; // Chave de tradução ou texto fixo se for nome de palestra específica
+  titleKey: string;
   speaker?: string;
   type: "talk" | "break" | "ceremony" | "networking";
 }
 
 interface DaySchedule {
-  dayKey: string; // 'day1' ou 'day2'
+  dayKey: string;
   date: string;
   items: ScheduleItem[];
 }
@@ -22,19 +22,17 @@ const QuasarSchedule = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedItem, setSelectedItem] = useState<ScheduleItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { t } = useLanguage(); // Hook
+  const { t } = useLanguage();
 
-  // Dados dentro do componente para acessar 't' se quiséssemos, 
-  // mas como as chaves são estáticas, podemos manter a estrutura e traduzir na renderização.
   const scheduleData: DaySchedule[] = [
     {
       dayKey: "day1",
-      date: t.hero.dateLocation.split("•")[0].trim(), // Reutiliza a data do Hero ou string fixa
+      date: t.hero.dateLocation.split("•")[0].trim(),
       items: [
         { time: "09:00", titleKey: "checkin", type: "break" },
         { time: "09:45", titleKey: "opening", type: "ceremony" },
-        { time: "10:30", titleKey: "talk", speaker: "...", type: "talk" },
-        { time: "11:15", titleKey: "talk", speaker: "...", type: "talk" },
+        { time: "10:30", titleKey: "talk", speaker: "Ana Silva", type: "talk" },
+        { time: "11:15", titleKey: "talk", speaker: "Carlos Souza", type: "talk" },
         { time: "12:00", titleKey: "lunch", type: "break" },
         { time: "14:00", titleKey: "talk", speaker: "...", type: "talk" },
         { time: "14:45", titleKey: "talk", speaker: "...", type: "talk" },
@@ -64,13 +62,18 @@ const QuasarSchedule = () => {
     }
   ];
 
-  // Helper para traduzir o título do item
+  // Helpers de Tradução Segura
   const getItemTitle = (key: string) => {
-    // @ts-ignore
-    return t.schedule.items[key] || key + " (Title)";
+    // @ts-ignore - Acessando dinamicamente
+    return t.schedule.items[key] || key;
   };
 
-  // Helper para traduzir o dia
+  const getItemDescription = (key: string) => {
+    // @ts-ignore - Acessando dinamicamente
+    return t.schedule.descriptions?.[key] || 
+           (t.schedule.items[key] ? `Details about ${t.schedule.items[key]} coming soon.` : "Description unavailable.");
+  };
+
   const getDayTitle = (key: string) => {
     // @ts-ignore
     return t.schedule[key] || key;
@@ -101,7 +104,7 @@ const QuasarSchedule = () => {
     const isQuasarItem = title.toLowerCase().includes("quasar");
     const isHighlight = item.type === "ceremony" || item.type === "networking" || isQuasarItem;
     
-    // ... Lógica de renderização do Break ...
+    // Renderização do Break (Intervalo)
     if (item.type === "break") {
        return (
         <div key={index} className="relative py-6 flex items-center justify-center group select-none">
@@ -140,7 +143,7 @@ const QuasarSchedule = () => {
           hoveredIndex === index ? "-translate-y-1 scale-[1.005]" : "",
           isHighlight ? "border-primary/10 bg-primary/[0.03]" : "border-border/40"
         )}>
-           {/* ... Efeitos visuais mantidos ... */}
+           
            {isQuasarItem && (
              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none">
                 <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/20 blur-[100px] rounded-full mix-blend-screen"></div>
@@ -183,7 +186,6 @@ const QuasarSchedule = () => {
                 </div>
               )}
             </div>
-            {/* ... Seta mantida ... */}
              <div className="hidden md:flex items-center justify-end pl-4">
               <div className={cn(
                 "w-8 h-8 rounded-full flex items-center justify-center opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300",
@@ -200,7 +202,6 @@ const QuasarSchedule = () => {
 
   return (
     <section id="programacao" className="py-24 bg-background relative overflow-hidden">
-      {/* ... Background effects mantidos ... */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none opacity-40"></div>
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -252,17 +253,95 @@ const QuasarSchedule = () => {
         </div>
       </div>
 
-      {/* Modal de Detalhes (Simplificado para manter foco na tradução) */}
+      {/* MODAL DE DETALHES IMPLEMENTADO */}
       {isModalOpen && selectedItem && (
         <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-4 sm:p-0">
+          
+          {/* Backdrop */}
           <div 
-            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300"
             onClick={handleCloseModal}
+            aria-hidden="true"
           ></div>
-          <div className="relative z-50 w-full max-w-lg bg-card border border-border shadow-2xl rounded-t-2xl md:rounded-2xl overflow-hidden p-6 md:p-8">
-             <button onClick={handleCloseModal} className="absolute right-4 top-4 p-2"><X className="w-5 h-5"/></button>
-             <h3 className="text-2xl font-bold mb-4">{getItemTitle(selectedItem.titleKey)}</h3>
-             <p className="text-muted-foreground">{t.schedule.detailsComingSoon}</p>
+
+          {/* Janela do Modal */}
+          <div 
+            className="relative z-50 w-full max-w-lg bg-card border border-border shadow-2xl rounded-t-2xl md:rounded-2xl overflow-hidden animate-in slide-in-from-bottom-10 zoom-in-95 duration-300 sm:my-8 sm:align-middle"
+            role="dialog"
+            aria-modal="true"
+          >
+             {/* Barra colorida no topo */}
+             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+            
+            <div className="p-6 md:p-8 relative">
+              <button 
+                onClick={handleCloseModal} 
+                className="absolute right-4 top-4 p-2 rounded-full bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                aria-label="Fechar"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Cabeçalho do Modal */}
+              <div className="mb-6 pr-8">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                    <Clock className="w-3 h-3 mr-1" />
+                    {selectedItem.time}
+                  </span>
+                   <span className="text-xs text-muted-foreground flex items-center gap-1">
+                     <Calendar className="w-3 h-3" />
+                     {scheduleData[activeDay].date}
+                   </span>
+                </div>
+                <h3 className="text-2xl font-bold text-foreground leading-tight">
+                  {getItemTitle(selectedItem.titleKey)}
+                </h3>
+              </div>
+
+              {/* Conteúdo do Modal (Descrições) */}
+              <div className="space-y-6">
+                <div>
+                   <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2 flex items-center gap-2">
+                     {/* @ts-ignore */}
+                     {t.schedule.modal?.aboutActivity || "Sobre a atividade"}
+                   </h4>
+                   <div className="prose prose-sm md:prose-base text-foreground/90 leading-relaxed">
+                     <p>
+                       {getItemDescription(selectedItem.titleKey)}
+                     </p>
+                   </div>
+                </div>
+
+                {/* Seção do Palestrante (se houver) */}
+                {selectedItem.speaker && (
+                  <div className="pt-6 border-t border-border/50 flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center border border-border shrink-0">
+                       <Users className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-1">
+                         {/* @ts-ignore */}
+                        {t.schedule.modal?.speaker || "Palestrante"}
+                      </h4>
+                      <p className="font-medium text-lg text-foreground">{selectedItem.speaker}</p>
+                      {/* Futuramente pode-se adicionar uma bioKey ou similar */}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Rodapé do Modal */}
+              <div className="mt-8 flex justify-end">
+                <button 
+                   onClick={handleCloseModal}
+                   className="px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/80 transition-colors text-sm font-medium"
+                >
+                   {/* @ts-ignore */}
+                  {t.schedule.modal?.close || "Fechar Detalhes"}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
