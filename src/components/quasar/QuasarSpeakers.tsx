@@ -26,18 +26,18 @@ const speakers: Speaker[] = [
   {
     id: 1,
     name: "Samson Abramsky",
-    title: "Pesquisador",
-    institution: "Oxford",
+    title: "Professor Emérito",
+    institution: "University of Oxford",
     image: SamsonAbramsky,
-    bio: "...",
+    bio: "Samson Abramsky é Professor Emérito de Ciência da Computação na Universidade de Oxford e Fellow da Royal Society. É um dos fundadores da Mecânica Quântica Categórica, aplicando teoria das categorias para unificar lógica e física. Seu trabalho revolucionou o entendimento da contextualidade, não-localidade e semântica da computação quântica.",
   },
   {
     id: 2,
     name: "Fernando Brandão",
-    title: "Professor de Física Teórica",
-    institution: "Caltech / Amazon",
+    title: "Head de Algoritmos Quânticos",
+    institution: "AWS / Caltech",
     image: fernandoBrandao,
-    bio: "Fernando Brandão é Professor Bren de Física Teórica no Caltech e Diretor de Pesquisa Quântica na Amazon Web Services. Seus trabalhos pioneiros em teoria de informação quântica incluem contribuições fundamentais em emaranhamento quântico, termodinâmica quântica e algoritmos quânticos. Recebeu diversos prêmios internacionais por suas contribuições à física quântica."
+    bio: "Fernando Brandão é referência global em tecnologia, atua como Diretor de Algoritmos Quânticos na Amazon Web Services (AWS) e Professor Bren no Caltech. Seus trabalhos premiados redefiniram o entendimento sobre emaranhamento e 'supremacia quântica', liderando o desenvolvimento de hardware e software para a próxima geração de computadores."
   },
   {
     id: 3,
@@ -50,10 +50,10 @@ const speakers: Speaker[] = [
   {
     id: 4,
     name: "Rafael Chaves",
-    title: "...",
+    title: "Professor e Vice-diretor",
     institution: "IIP",
     image: RafaelChaves,
-    bio: "...",
+    bio: "Rafael Chaves é Professor na UFRN e Vice-diretor do Instituto Internacional de Física (IIP). Lidera o grupo de pesquisa em Informação e Matéria Quântica e é membro afiliado da Academia Brasileira de Ciências. Suas pesquisas pioneiras focam em causalidade quântica, aprendizado de máquina quântico e fundamentos da mecânica quântica.",
   },
   {
     id: 5,
@@ -74,34 +74,34 @@ const speakers: Speaker[] = [
   {
     id: 9,
     name: "Erico Teixeira",
-    title: "Pesquisador",
+    title: "Pesquisador Líder",
     institution: "Venturus",
     image: EricoTexeira,
-    bio: "Investigador em Computação Quântica, com doutoramento em Química e mestrado em Ciência da Computação pela UFPE. Especialista em Química Computacional e Algoritmos Quânticos.",
+    bio: "Erico Teixeira é Doutor em Química Teórica e especialista em Computação Quântica. Une o rigor acadêmico à aplicação industrial, desenvolvendo algoritmos pioneiros para resolver problemas complexos de química e otimização em cenários reais de mercado.",
   },
   {
     id: 8,
     name: "Marina Ansanelli",
-    title: "PhD Student",
+    title: "Pesquisadora de Doutorado",
     institution: "Perimeter Institute",
     image: MarinaAnsanelli,
-    bio: "Pesquisadora em Fundamentos Quânticos e Inferência Causal. Recebedora do Emmy Noether Emerging Talent Fund.",
+    bio: "Marina Ansanelli é pesquisadora em destaque no renomado Perimeter Institute, explora as fronteiras entre inferência causal e mecânica quântica. Vencedora do Emmy Noether Emerging Talent Fund, investiga como novas estruturas causais podem revolucionar a estatística e a inteligência artificial quântica.",
   },
   {
     id: 7,
     name: "Federico Holik",
-    title: "Investigador Adjunto",
-    institution: "UNLP",
+    title: "Pesquisador Sênior",
+    institution: "CONICET / UNLP",
     image: FedericoHolik,
-    bio: "Doutorado em Física pela Universidade de Buenos Aires. Especialista em Informação Quântica, Fundamentos da Mecânica Quântica e Lógica Quântica. Atua como investigador no CONICET (Argentina).",
+    bio: "Federico Holik é autoridade latino-americana em Lógica e Fundamentos Quânticos. Atuando pelo CONICET, seu trabalho investiga a estrutura matemática profunda da informação quântica, criando as bases teóricas essenciais para o desenvolvimento de novas tecnologias computacionais.",
   },
   {
     id: 10,
     name: "Daniel Haro",
-    title: "Chefe de Tecnologias Emergentes",
+    title: "Head de Tecnologias Emergentes",
     institution: "Venturus",
     image: DanielHaro,
-    bio: "Líder de Tecnologias Emergentes no Venturus. Foca na preparação de empresas para a era quântica (Quantum Readiness) e na construção de pontes entre a investigação científica e o mercado.",
+    bio: "Daniel Haro é Líder estratégico de inovação no Venturus, focado em preparar grandes empresas para a era do 'Quantum Readiness'. Atua na linha de frente da tradução tecnológica, conectando a ciência quântica avançada a aplicações de mercado e novos modelos de negócios.",
   },
 
 ];
