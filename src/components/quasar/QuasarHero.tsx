@@ -1,5 +1,5 @@
 import estacaoCiencias from "@/assets/estacao-ciencias.jpg";
-import quasarLogo from "@/assets/logo-quasar-branca.png";
+import quasarLogo from "@/assets/logo-quasar-branca-zoom.png";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const QuasarHero = () => {
