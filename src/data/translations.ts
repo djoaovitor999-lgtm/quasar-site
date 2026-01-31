@@ -11,8 +11,7 @@ export const translations = {
     },
     hero: {
       dateLocation: "Julho/Agosto 2026 • João Pessoa",
-      titlePrefix: "II Encontro",
-      titleHighlight: "Quasar",
+      titlePrefix: "II Encontro Quasar",
       subtitle: "Inauguração do Centro Internacional de Computação Quântica (CIQUANTA)",
       cta: "GARANTIR PRESENÇA",
       scroll: "Descubra",
