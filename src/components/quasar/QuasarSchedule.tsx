@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Clock, Coffee, Mic, Users, ArrowRight, Zap, Quote, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import QuasarLogo from "@/assets/logo-quasar-branca-zoom.png";
+import QuasarLogo from "@/assets/quasar.png";
 import { useLanguage } from "@/contexts/LanguageContext"; // Importe
 
 interface ScheduleItem {
@@ -156,7 +156,7 @@ const QuasarSchedule = () => {
                 "bg-secondary/50 text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary"
               )}>
                 {isQuasarItem ? (
-                  <img src={QuasarLogo} alt="Quasar Logo" className="w-10 h-10 object-contain" />
+                  <img src={QuasarLogo} alt="Quasar Logo" className="w-12 h-12 object-contain" />
                 ) : (
                   <IconComponent className="w-6 h-6" />
                 )}

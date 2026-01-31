@@ -1,7 +1,7 @@
 import logoGovernoParaiba from "@/assets/logo-governo-pb.png";
 import logoPMJP from "@/assets/logo-pmjp.png";
 import logoUFPB from "@/assets/logo-ufpb.png";
-import logoQuasar from "@/assets/logo-quasar-branca.png";
+import logoQuasar from "@/assets/quasar.png";
 import LogoVenturus from "@/assets/venturus.png";
 import LogoAWS from "@/assets/aws.png";
 import { useLanguage } from "@/contexts/LanguageContext";
