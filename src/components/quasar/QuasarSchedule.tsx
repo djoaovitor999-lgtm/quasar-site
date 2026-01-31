@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 // Importando a logo da Quasar
-import QuasarLogo from "@/assets/logo-quasar-branca.png";
+import QuasarLogo from "@/assets/logo-quasar-branca-zoom.png";
 
 // --- Tipos ---
 interface ScheduleItem {
