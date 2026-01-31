@@ -1,10 +1,8 @@
-// src/components/quasar/QuasarNavigation.tsx
 import { useState } from "react";
-import { Menu, X, Globe } from "lucide-react"; // Adicione o ícone Globe
-import { useLanguage } from "@/contexts/LanguageContext"; // Importe o hook
+import { Menu, X, Globe } from "lucide-react";
 import logoQuasar from "@/assets/logo-quasar-branca.png";
 import logoQuasarPreta from "@/assets/logo-quasar-preta.png";
-import { Button } from "@/components/ui/button"; // Opcional, ou use button html simples
+import { useLanguage } from "@/contexts/LanguageContext"; // Importando o contexto
 
 interface QuasarNavigationProps {
   isHeroVisible?: boolean;
@@ -12,12 +10,9 @@ interface QuasarNavigationProps {
 
 const QuasarNavigation = ({ isHeroVisible = true }: QuasarNavigationProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { language, setLanguage, t } = useLanguage(); // Use o contexto
+  const { t, language, setLanguage } = useLanguage(); // Usando o hook de tradução
 
-  const toggleLanguage = () => {
-    setLanguage(language === 'pt' ? 'en' : 'pt');
-  };
-
+  // Usando os textos do arquivo de traduções
   const navLinks = [
     { href: "#sobre", label: t.nav.about },
     { href: "#palestrantes", label: t.nav.speakers },
@@ -38,11 +33,16 @@ const QuasarNavigation = ({ isHeroVisible = true }: QuasarNavigationProps) => {
     setIsMenuOpen(false);
   };
 
+  const toggleLanguage = () => {
+    setLanguage(language === 'pt' ? 'en' : 'pt');
+  };
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isHeroVisible ? "bg-transparent" : "bg-background/95 backdrop-blur-sm border-b border-border"
     }`}>
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Logo */}
         <a href="#" className="flex items-center">
           <img 
             src={isHeroVisible ? logoQuasar : logoQuasarPreta} 
@@ -67,33 +67,39 @@ const QuasarNavigation = ({ isHeroVisible = true }: QuasarNavigationProps) => {
               {link.label}
             </a>
           ))}
-          
+
           {/* Language Switcher Desktop */}
           <button
             onClick={toggleLanguage}
-            className={`flex items-center gap-2 px-3 py-1 rounded-full border transition-all ${
-              isHeroVisible 
-                ? "border-white/30 text-white hover:bg-white/10" 
-                : "border-border text-foreground hover:bg-secondary"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-bold transition-all hover:scale-105 ${
+              isHeroVisible
+                ? "border-white/30 text-white bg-white/10 hover:bg-white/20"
+                : "border-primary/20 text-primary bg-primary/5 hover:bg-primary/10"
             }`}
+            aria-label="Mudar idioma"
           >
-            <Globe className="w-4 h-4" />
-            <span className="text-xs font-bold">{language.toUpperCase()}</span>
+            <Globe className="w-3.5 h-3.5" />
+            {/* Aqui usamos "BR" visualmente, mas a lógica usa 'pt' */}
+            {language === 'pt' ? 'BR' : 'EN'}
           </button>
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center gap-4">
-          {/* Language Switcher Mobile */}
-          <button
+        <div className="flex items-center gap-4 md:hidden">
+          {/* Language Switcher Mobile (Visível fora do menu hambúrguer para facilidade) */}
+           <button
             onClick={toggleLanguage}
-            className={`flex items-center gap-1 ${isHeroVisible ? "text-white" : "text-foreground"}`}
+            className={`flex items-center gap-1 px-2 py-1 rounded border text-xs font-bold ${
+              isHeroVisible
+                ? "border-white/30 text-white"
+                : "border-foreground/20 text-foreground"
+            }`}
           >
-            <span className="text-xs font-bold">{language.toUpperCase()}</span>
+             {language === 'pt' ? 'BR' : 'EN'}
           </button>
 
           <button
-            className="p-2"
+            className="p-1"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Menu"
           >
@@ -106,9 +112,9 @@ const QuasarNavigation = ({ isHeroVisible = true }: QuasarNavigationProps) => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
-        <div className="md:hidden bg-background border-b border-border">
+        <div className="md:hidden bg-background border-b border-border animate-in slide-in-from-top-5 duration-200">
           <div className="container mx-auto px-6 py-6 space-y-4">
             {navLinks.map((link) => (
               <a
