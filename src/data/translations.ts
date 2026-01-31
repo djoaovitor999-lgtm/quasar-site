@@ -111,7 +111,7 @@ export const translations = {
       items: {
         checkin: "Check-in",
         opening: "Quasar: Institutional Opening",
-        talk: "Keynote / Talk",
+        talk: "Talk",
         lunch: "Lunch",
         break: "Coffee Break",
         panel: "Panel Discussion",
