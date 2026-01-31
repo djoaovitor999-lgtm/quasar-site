@@ -5,11 +5,12 @@ import {
   Coffee, 
   Mic, 
   Users, 
-  Star, 
-  ChevronRight,
-  MapPin
+  Sparkles, 
+  ArrowRight,
+  Zap,
+  Quote
 } from "lucide-react";
-import { cn } from "@/lib/utils"; // Assumindo que você tem o utilitário cn configurado
+import { cn } from "@/lib/utils";
 
 interface ScheduleItem {
   time: string;
@@ -64,152 +65,180 @@ const schedule: DaySchedule[] = [
 
 const QuasarSchedule = () => {
   const [activeDay, setActiveDay] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  const getIcon = (type: ScheduleItem["type"]) => {
-    switch (type) {
-      case "talk": return <Mic className="w-4 h-4" />;
-      case "break": return <Coffee className="w-4 h-4" />;
-      case "ceremony": return <Star className="w-4 h-4" />;
-      case "networking": return <Users className="w-4 h-4" />;
-      default: return <Clock className="w-4 h-4" />;
+  // Renderização diferenciada baseada no tipo de item
+  const renderItem = (item: ScheduleItem, index: number) => {
+    // Estilo "Separador" para Breaks (Intervalos)
+    if (item.type === "break") {
+      return (
+        <div 
+          key={index}
+          className="relative py-6 flex items-center justify-center group"
+        >
+          <div className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent group-hover:via-primary/50 transition-all duration-500"></div>
+          <div className="relative z-10 bg-background px-6 py-1.5 rounded-full border border-border shadow-sm flex items-center gap-3 text-sm text-muted-foreground group-hover:text-primary group-hover:border-primary/30 transition-all duration-300">
+            <span className="font-mono text-xs opacity-70">{item.time}</span>
+            <div className="w-1 h-1 rounded-full bg-current"></div>
+            <span className="uppercase tracking-wide text-xs font-semibold flex items-center gap-2">
+              <Coffee className="w-3 h-3" />
+              {item.title}
+            </span>
+          </div>
+        </div>
+      );
     }
-  };
 
-  const getItemStyles = (type: ScheduleItem["type"]) => {
-    switch (type) {
-      case "talk":
-        return "border-primary/30 bg-card hover:border-primary/60";
-      case "ceremony":
-        return "border-amber-500/30 bg-amber-500/5 hover:border-amber-500/60";
-      case "break":
-        return "border-muted bg-muted/20 opacity-80 hover:opacity-100";
-      case "networking":
-        return "border-indigo-500/30 bg-indigo-500/5 hover:border-indigo-500/60";
-      default:
-        return "border-border bg-card";
-    }
+    // Estilo "Card de Destaque" para Palestras, Cerimônias e Networking
+    const isHighlight = item.type === "ceremony" || item.type === "networking";
+    
+    return (
+      <div 
+        key={index}
+        className="relative group perspective-1000"
+        onMouseEnter={() => setHoveredIndex(index)}
+        onMouseLeave={() => setHoveredIndex(null)}
+      >
+        <div className={cn(
+          "relative p-6 rounded-2xl border transition-all duration-500 ease-out overflow-hidden backdrop-blur-sm",
+          // Estilos base
+          "bg-card/50 hover:bg-card/80",
+          // Borda brilhante no hover
+          "hover:shadow-[0_0_30px_-5px_rgba(var(--primary),0.1)] hover:border-primary/40",
+          // Transformação 3D sutil
+          hoveredIndex === index ? "-translate-y-1 scale-[1.01]" : "",
+          // Cores específicas por tipo
+          isHighlight ? "border-primary/20 bg-primary/5" : "border-border/50"
+        )}>
+          
+          {/* Efeito de brilho de fundo (Glow) */}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+             <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 blur-3xl rounded-full"></div>
+             <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-primary/5 to-transparent"></div>
+          </div>
+
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+            
+            {/* Coluna da Esquerda: Tempo e Ícone */}
+            <div className="flex items-center gap-4 min-w-[140px]">
+              <div className={cn(
+                "w-12 h-12 rounded-xl flex items-center justify-center border shadow-sm transition-colors duration-300",
+                isHighlight ? "bg-primary text-primary-foreground border-primary" : "bg-secondary text-foreground group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary"
+              )}>
+                {item.type === 'ceremony' ? <Sparkles className="w-5 h-5" /> : 
+                 item.type === 'networking' ? <Users className="w-5 h-5" /> :
+                 <Mic className="w-5 h-5" />}
+              </div>
+              <div className="flex flex-col">
+                <span className="text-lg font-bold tracking-tight text-foreground font-mono">
+                  {item.time}
+                </span>
+                <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">
+                  Horário
+                </span>
+              </div>
+            </div>
+
+            {/* Coluna Central: Conteúdo */}
+            <div className="flex-1 space-y-2">
+              <h4 className={cn(
+                "text-xl font-medium tracking-tight transition-colors",
+                isHighlight ? "text-primary font-bold" : "text-foreground group-hover:text-primary"
+              )}>
+                {item.title}
+              </h4>
+              
+              {item.speaker && (
+                <div className="flex items-center gap-2 text-muted-foreground group-hover:text-foreground/80 transition-colors">
+                  <Quote className="w-3 h-3 rotate-180 opacity-50" />
+                  <p className="text-sm font-medium">{item.speaker}</p>
+                </div>
+              )}
+
+              {item.type === 'networking' && (
+                <p className="text-sm text-muted-foreground">Momento para conexões e troca de experiências.</p>
+              )}
+            </div>
+
+            {/* Coluna da Direita: Ação (Decorativo) */}
+            <div className="hidden md:flex items-center justify-end">
+              <div className="w-10 h-10 rounded-full border border-border/50 flex items-center justify-center opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                <ArrowRight className="w-4 h-4 text-primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
-    <section id="programacao" className="py-24 bg-gradient-to-b from-background via-secondary/20 to-background relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-30">
-        <div className="absolute top-1/4 -left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 -right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
-      </div>
-
+    <section id="programacao" className="py-32 bg-background relative overflow-hidden">
+      {/* Background Decorativo Estilo "Aurora" */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none opacity-50"></div>
+      
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-3xl md:text-5xl font-light text-foreground tracking-tight">
-            Programação <span className="font-semibold text-primary">do Evento</span>
+        
+        {/* Cabeçalho */}
+        <div className="flex flex-col items-center text-center mb-20">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-medium mb-6 animate-fade-in-up">
+            <Zap className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+            Agenda Oficial
+          </div>
+          
+          <h2 className="text-4xl md:text-6xl font-light text-foreground mb-6 tracking-tight">
+            Programação <span className="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">Imersiva</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Confira as atividades planejadas para os dois dias de imersão em tecnologia e inovação.
+          
+          <p className="max-w-xl text-lg text-muted-foreground font-light">
+            Prepare-se para dois dias intensos de conteúdo, inovação e networking estratégico.
           </p>
         </div>
 
-        {/* Day Tabs */}
+        {/* Seletor de Dias Estilizado */}
         <div className="flex justify-center mb-16">
-          <div className="inline-flex bg-secondary/50 p-1.5 rounded-full border border-border/50 shadow-sm backdrop-blur-sm">
+          <div className="bg-secondary/30 p-2 rounded-2xl flex gap-2 backdrop-blur-md border border-border/50 shadow-lg">
             {schedule.map((day, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveDay(idx)}
                 className={cn(
-                  "px-8 py-3 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2",
+                  "relative px-8 py-4 rounded-xl text-sm font-medium transition-all duration-500 overflow-hidden",
                   activeDay === idx
-                    ? "bg-background text-primary shadow-md scale-105 ring-1 ring-border"
-                    : "text-muted-foreground hover:text-foreground hover:bg-background/50"
+                    ? "text-primary-foreground shadow-lg"
+                    : "text-muted-foreground hover:text-foreground hover:bg-background/40"
                 )}
               >
-                <Calendar className="w-4 h-4" />
-                <span>{day.day}</span>
+                {/* Background Animado do Botão Ativo */}
+                {activeDay === idx && (
+                  <div className="absolute inset-0 bg-primary w-full h-full rounded-xl transition-all"></div>
+                )}
+                
+                <div className="relative z-10 flex flex-col items-center gap-1">
+                  <span className={cn("text-base font-bold", activeDay === idx ? "text-primary-foreground" : "")}>
+                    {day.day}
+                  </span>
+                  <span className={cn("text-xs opacity-80", activeDay === idx ? "text-primary-foreground" : "")}>
+                    {day.date}
+                  </span>
+                </div>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Date Display */}
-        <div className="text-center mb-12 animate-fade-in-up">
-           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 text-primary border border-primary/10 text-sm font-medium">
-             <Clock className="w-4 h-4" />
-             {schedule[activeDay].date}
-           </div>
+        {/* Lista da Programação */}
+        <div className="max-w-4xl mx-auto space-y-4">
+          <div className="transition-all duration-500 ease-in-out opacity-100 transform translate-y-0">
+            {schedule[activeDay].items.map((item, idx) => renderItem(item, idx))}
+          </div>
         </div>
-
-        {/* Schedule Grid */}
-        <div className="max-w-4xl mx-auto space-y-6">
-          {schedule[activeDay].items.map((item, idx) => (
-            <div
-              key={idx}
-              className="group relative pl-8 md:pl-0 animate-fade-in-up"
-              style={{ animationDelay: `${idx * 0.05}s` }}
-            >
-              {/* Timeline Line (Desktop) */}
-              <div className="hidden md:block absolute left-[9.5rem] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-border to-transparent group-last:via-transparent"></div>
-              
-              <div className="flex flex-col md:flex-row gap-6 md:items-center relative">
-                
-                {/* Time Column */}
-                <div className="md:w-32 flex-shrink-0 text-right">
-                  <span className="text-xl font-light tracking-tighter text-foreground/80 group-hover:text-primary transition-colors duration-300">
-                    {item.time}
-                  </span>
-                </div>
-
-                {/* Timeline Dot */}
-                <div className="hidden md:flex absolute left-[9.5rem] -translate-x-1/2 items-center justify-center w-4 h-4 rounded-full border-2 border-background bg-muted-foreground/30 group-hover:bg-primary group-hover:scale-125 transition-all duration-300 z-10"></div>
-
-                {/* Content Card */}
-                <div className={cn(
-                  "flex-1 p-5 rounded-xl border transition-all duration-300 hover:shadow-lg hover:-translate-y-1 relative overflow-hidden",
-                  getItemStyles(item.type)
-                )}>
-                  {/* Icon Watermark (Background) */}
-                  <div className="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-10 transition-opacity duration-500 scale-150 text-foreground">
-                    {getIcon(item.type) && <div className="[&>svg]:w-24 [&>svg]:h-24">{getIcon(item.type)}</div>}
-                  </div>
-
-                  <div className="flex items-start justify-between gap-4 relative z-10">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className={cn(
-                          "inline-flex p-1.5 rounded-md text-xs", 
-                          item.type === 'break' ? "bg-muted text-muted-foreground" : "bg-primary/10 text-primary"
-                        )}>
-                          {getIcon(item.type)}
-                        </span>
-                        <span className="text-xs uppercase tracking-wider font-semibold text-muted-foreground/70">
-                          {item.type === 'talk' ? 'Palestra' : 
-                           item.type === 'break' ? 'Intervalo' : 
-                           item.type === 'networking' ? 'Networking' : 'Cerimônia'}
-                        </span>
-                      </div>
-                      
-                      <h4 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-                        {item.title}
-                      </h4>
-                      
-                      {item.speaker && (
-                        <p className="text-sm text-muted-foreground flex items-center gap-1.5 pt-1">
-                          <Users className="w-3 h-3" />
-                          {item.speaker}
-                        </p>
-                      )}
-                    </div>
-
-                    {item.speaker && (
-                      <div className="hidden sm:flex opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-2 group-hover:translate-x-0">
-                        <div className="bg-background p-2 rounded-full shadow-sm border border-border">
-                          <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+        
+        {/* Rodapé da Seção */}
+        <div className="mt-20 text-center">
+            <p className="text-sm text-muted-foreground">
+                * A programação está sujeita a alterações sem aviso prévio.
+            </p>
         </div>
       </div>
     </section>
