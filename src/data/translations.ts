@@ -11,7 +11,7 @@ export const translations = {
     },
     hero: {
       dateLocation: "Julho/Agosto 2026 • João Pessoa",
-      titlePrefix: "II Encontro Quasar",
+      titlePrefix: "II Encontro ",
       subtitle: "Inauguração do Centro Internacional de Computação Quântica (CIQUANTA)",
       cta: "GARANTIR PRESENÇA",
       scroll: "Descubra",
@@ -78,7 +78,7 @@ export const translations = {
     },
     hero: {
       dateLocation: "July/August 2026 • João Pessoa",
-      titlePrefix: "II Quasar Meeting",
+      titlePrefix: "II        Meeting",
       subtitle: "Inauguration of the International Centre for Quantum Computing (CIQUANTA)",
       cta: "SECURE YOUR SPOT",
       scroll: "Discover",
