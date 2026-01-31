@@ -27,10 +27,10 @@ export const translations = {
     speakers: {
       title: "Palestrantes (Preliminar)",
       role: {
-        professor: "Professor Emérito",
-        head: "Head de Algoritmos Quânticos",
-        researcher: "Pesquisador Titular",
-        student: "Pesquisadora de Doutorado"
+        professor: "Professor(a)",
+        head: "Head / Diretor(a)",
+        researcher: "Pesquisador(a)",
+        student: "Doutorando(a)"
       }
     },
     schedule: {
@@ -95,10 +95,10 @@ export const translations = {
     speakers: {
       title: "Speakers (Preliminary)",
       role: {
-        professor: "Professor Emeritus",
-        head: "Head of Quantum Algorithms",
-        researcher: "Senior Researcher",
-        student: "PhD Researcher"
+        professor: "Professor",
+        head: "Head / Director",
+        researcher: "Researcher",
+        student: "PhD Candidate"
       }
     },
     schedule: {
