@@ -11,7 +11,7 @@ export const translations = {
     },
     hero: {
       dateLocation: "Julho/Agosto 2026 • João Pessoa",
-      titlePrefix: "II Encontro ",
+      titlePrefix: "II Encontro",
       TitleSuffix: "",
       subtitle: "Inauguração do Centro Internacional de Computação Quântica (CIQUANTA)",
       cta: "GARANTIR PRESENÇA",
