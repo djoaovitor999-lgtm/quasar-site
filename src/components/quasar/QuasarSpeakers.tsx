@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useLanguage } from "@/contexts/LanguageContext"; // Importando o contexto
 
-// Imports das imagens (mantidos iguais)
 import aleksKissinger from "@/assets/speakers/aleks-kissinger.jpg";
 import fernandoBrandao from "@/assets/speakers/fernando-brandao.jpg";
 import amirCaldeira from "@/assets/speakers/amir-caldeira.jpg";
@@ -18,156 +16,118 @@ import RafaelChaves from '@/assets/speakers/rafael-chaves.jpeg';
 interface Speaker {
   id: number;
   name: string;
-  titleKey: string; // Chave para buscar o título no translations.ts
+  title: string;
   institution: string;
   image: string;
-  bioPt: string; // Biografia em Português
-  bioEn: string; // Biografia em Inglês
+  bio: string;
 }
 
-// Atualizamos os dados para incluir bioPt e bioEn
-const speakersData: Speaker[] = [
+const speakers: Speaker[] = [
   {
     id: 1,
     name: "Samson Abramsky",
-    titleKey: "professor",
-    institution: "University of Oxford / University College London",
+    title: "Professor Emérito",
+    institution: "University of Oxford",
     image: SamsonAbramsky,
-    bioPt:
-      "Samson Abramsky é Professor Emérito no Department of Computer Science da University of Oxford e atua como Professor de Ciência da Computação na University College London. É Fellow da Royal Society (FRS). É um dos pioneiros da Categorical Quantum Mechanics, usando teoria das categorias para conectar lógica, semântica e física, com contribuições fundamentais para contextualidade e não-localidade.",
-    bioEn:
-      "Samson Abramsky is an Emeritus Professor in the Department of Computer Science at the University of Oxford and a Professor of Computer Science at University College London. He is a Fellow of the Royal Society (FRS). A pioneer in Categorical Quantum Mechanics, he applies category theory to connect logic, semantics, and physics, with major contributions to contextuality and non-locality."
+    bio: "Samson Abramsky é Professor Emérito de Ciência da Computação na Universidade de Oxford e Fellow da Royal Society. É um dos fundadores da Mecânica Quântica Categórica, aplicando teoria das categorias para unificar lógica e física. Seu trabalho revolucionou o entendimento da contextualidade, não-localidade e semântica da computação quântica.",
   },
   {
     id: 2,
     name: "Fernando Brandão",
-    titleKey: "head",
+    title: "Head de Algoritmos Quânticos",
     institution: "AWS / Caltech",
     image: fernandoBrandao,
-    bioPt:
-      "Fernando Brandão é head of quantum algorithms na Amazon Web Services (AWS) e Bren Professor of Theoretical Physics no Caltech. Sua pesquisa em informação quântica abrange, entre outros temas, teoria do emaranhamento, complexidade quântica e o estudo de algoritmos e limites fundamentais de computação quântica.",
-    bioEn:
-      "Fernando Brandão is the head of quantum algorithms at Amazon Web Services (AWS) and the Bren Professor of Theoretical Physics at Caltech. His research in quantum information spans entanglement theory, quantum complexity, and the study of algorithms and fundamental limits of quantum computation."
+    bio: "Fernando Brandão é referência global em tecnologia, atua como Diretor de Algoritmos Quânticos na Amazon Web Services (AWS) e Professor Bren no Caltech. Seus trabalhos premiados redefiniram o entendimento sobre emaranhamento e 'supremacia quântica', liderando o desenvolvimento de hardware e software para a próxima geração de computadores."
   },
   {
     id: 3,
     name: "Amir Caldeira",
-    titleKey: "professor",
+    title: "Professor Emérito",
     institution: "UNICAMP",
     image: amirCaldeira,
-    bioPt:
-      "Amir O. Caldeira é físico teórico e professor na Universidade Estadual de Campinas (UNICAMP). É conhecido pelo modelo Caldeira–Leggett, desenvolvido em colaboração com Anthony Leggett (Nobel de Física de 2003), que descreve dissipação e decoerência em sistemas quânticos acoplados a um ambiente.",
-    bioEn:
-      "Amir O. Caldeira is a theoretical physicist and a professor at UNICAMP. He is renowned for the Caldeira–Leggett model, developed in collaboration with Anthony Leggett (2003 Nobel Prize in Physics), which describes dissipation and decoherence in quantum systems coupled to an environment."
+    bio: "Amir Caldeira é Professor Emérito da Universidade Estadual de Campinas (UNICAMP) e um dos físicos brasileiros mais citados internacionalmente. É conhecido pelo modelo Caldeira-Leggett, desenvolvido com Anthony Leggett (Nobel de Física 2003), que descreve a dissipação em sistemas quânticos. Suas contribuições foram fundamentais para o entendimento da decoerência quântica."
   },
   {
     id: 4,
     name: "Rafael Chaves",
-    titleKey: "professor",
-    institution: "IIP / UFRN",
+    title: "Professor e Vice-diretor",
+    institution: "IIP",
     image: RafaelChaves,
-    bioPt:
-      "Rafael Chaves é professor na UFRN e Deputy Director do Instituto Internacional de Física (IIP-UFRN). Lidera iniciativas e colaborações em Informação Quântica e Fundamentos, e é membro afiliado da Academia Brasileira de Ciências.",
-    bioEn:
-      "Rafael Chaves is a professor at UFRN and Deputy Director of the International Institute of Physics (IIP-UFRN). He leads research efforts and collaborations in Quantum Information and Foundations, and is an Affiliate Member of the Brazilian Academy of Sciences."
+    bio: "Rafael Chaves é Professor na UFRN e Vice-diretor do Instituto Internacional de Física (IIP). Lidera o grupo de pesquisa em Informação e Matéria Quântica e é membro afiliado da Academia Brasileira de Ciências. Suas pesquisas pioneiras focam em causalidade quântica, aprendizado de máquina quântico e fundamentos da mecânica quântica.",
   },
   {
     id: 5,
     name: "Aleks Kissinger",
-    titleKey: "professor",
+    title: "Professor Associado",
     institution: "University of Oxford",
     image: aleksKissinger,
-    bioPt:
-      "Aleks Kissinger é Professor of Quantum Computing na University of Oxford e co-lidera o Quantum Group do departamento. Sua pesquisa cobre software quântico (compilação, verificação e simulação), com forte atuação em métodos diagramáticos e no ZX-calculus — uma linguagem gráfica introduzida por Coecke e Duncan e hoje amplamente usada em otimização e raciocínio sobre circuitos quânticos.",
-    bioEn:
-      "Aleks Kissinger is a Professor of Quantum Computing at the University of Oxford and joint head of the department’s Quantum Group. His work spans quantum software (compilation, verification, and simulation), with a strong focus on diagrammatic methods and the ZX-calculus—a graphical language introduced by Coecke and Duncan and now widely used for reasoning about and optimizing quantum circuits."
+    bio: "Aleks Kissinger é Professor Associado de Ciência da Computação na Universidade de Oxford. É um dos criadores do ZX-calculus, uma linguagem gráfica para raciocínio sobre computação quântica. Seu trabalho em fundamentos da mecânica quântica e verificação de circuitos quânticos tem impacto significativo na área."
   },
   {
     id: 6,
     name: "Renato Portugal",
-    titleKey: "researcher",
-    institution: "LNCC (MCTI)",
+    title: "Pesquisador Titular",
+    institution: "LNCC",
     image: renatoPortugal,
-    bioPt:
-      "Renato Portugal é Pesquisador Titular (Full Researcher) do Laboratório Nacional de Computação Científica (LNCC/MCTI). Atua em computação quântica e caminhadas quânticas e é autor do livro 'Quantum Walks and Search Algorithms', referência didática na área.",
-    bioEn:
-      "Renato Portugal is a Full Researcher at the National Laboratory for Scientific Computing (LNCC/MCTI). He works on quantum computing and quantum walks and authored the textbook 'Quantum Walks and Search Algorithms', a widely used reference in the field."
+    bio: "Renato Portugal é Pesquisador Titular do Laboratório Nacional de Computação Científica (LNCC). É autor de livros sobre computação quântica e caminhadas quânticas, sendo uma referência internacional na área. Suas pesquisas em algoritmos quânticos contribuíram para o avanço da computação quântica no Brasil."
   },
   {
     id: 9,
     name: "Erico Teixeira",
-    titleKey: "researcher",
+    title: "Pesquisador Líder",
     institution: "Venturus",
     image: EricoTexeira,
-    bioPt:
-      "Erico Souza Teixeira é pesquisador em Computação Quântica no Venturus. Possui PhD em Química Teórica e Computacional e atua na interface entre pesquisa e aplicação, com foco em química computacional quântica, bioinformática e desenvolvimento de algoritmos para problemas de alta complexidade.",
-    bioEn:
-      "Erico Souza Teixeira is a Quantum Computing researcher at Venturus. He holds a PhD in Theoretical and Computational Chemistry and works at the intersection of research and application, focusing on quantum computational chemistry, bioinformatics, and algorithm development for high-complexity problems."
+    bio: "Erico Teixeira é Doutor em Química Teórica e especialista em Computação Quântica. Une o rigor acadêmico à aplicação industrial, desenvolvendo algoritmos pioneiros para resolver problemas complexos de química e otimização em cenários reais de mercado.",
   },
   {
     id: 8,
     name: "Marina Ansanelli",
-    titleKey: "student",
+    title: "Pesquisadora de Doutorado",
     institution: "Perimeter Institute",
     image: MarinaAnsanelli,
-    bioPt:
-      "Marina Maciel Ansanelli é doutoranda (PhD candidate) no Perimeter Institute e recipient do Emmy Noether Emerging Talent Fund. Sua pesquisa está em fundamentos quânticos, com ênfase em inferência causal quântica (quantum causal inference) e em como estruturas causais ajudam a explicar vantagens e comportamentos não-clássicos.",
-    bioEn:
-      "Marina Maciel Ansanelli is a PhD candidate at Perimeter Institute and a recipient of the Emmy Noether Emerging Talent Fund. Her research is in quantum foundations, with a focus on quantum causal inference and how causal structures help explain quantum advantages and non-classical phenomena."
+    bio: "Marina é doutoranda do último ano no Instituto Perimeter de Física Teórica, no Canadá, sob a supervisão de Robert Spekkens. Seus principais interesses são a causalidade clássica e quântica, bem como suas conexões com outras áreas dos fundamentos quânticos, como teorias de recursos, teorias probabilísticas generalizadas e experimentos de "amigo de Wigner".",
   },
   {
     id: 7,
     name: "Federico Holik",
-    titleKey: "researcher",
-    institution: "CONICET / UNLP (Instituto de Física La Plata)",
+    title: "Pesquisador Sênior",
+    institution: "CONICET / UNLP",
     image: FedericoHolik,
-    bioPt:
-      "Federico Hernán Holik é Investigador Adjunto (Adjoint Researcher) do CONICET no Instituto de Física La Plata (UNLP/CONICET). Sua pesquisa explora fundamentos da mecânica quântica, lógica quântica e aspectos probabilísticos e algébricos da informação quântica.",
-    bioEn:
-      "Federico Hernán Holik is an Adjoint Researcher at CONICET at the Institute of Physics La Plata (UNLP/CONICET). His work explores quantum foundations, quantum logic, and probabilistic and algebraic aspects of quantum information."
+    bio: "Federico Holik é autoridade latino-americana em Lógica e Fundamentos Quânticos. Atuando pelo CONICET, seu trabalho investiga a estrutura matemática profunda da informação quântica, criando as bases teóricas essenciais para o desenvolvimento de novas tecnologias computacionais.",
   },
   {
     id: 10,
     name: "Daniel Haro",
-    titleKey: "head",
+    title: "Head de Tecnologias Emergentes",
     institution: "Venturus",
     image: DanielHaro,
-    bioPt:
-      "Daniel de Haro Moraes é Head de Tecnologias Emergentes no Venturus. Lidera iniciativas em computação quântica, incluindo programas de 'Quantum Readiness', além de atuar com temas correlatos como blockchain e cibersegurança aplicada.",
-    bioEn:
-      "Daniel de Haro Moraes is Head of Emerging Technologies at Venturus. He leads initiatives in quantum computing, including 'Quantum Readiness' programs, and also works on related areas such as blockchain and applied cybersecurity."
-  }
+    bio: "Daniel Haro é Líder estratégico de inovação no Venturus, focado em preparar grandes empresas para a era do 'Quantum Readiness'. Atua na linha de frente da tradução tecnológica, conectando a ciência quântica avançada a aplicações de mercado e novos modelos de negócios.",
+  },
+
 ];
 
 const QuasarSpeakers = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedSpeaker, setSelectedSpeaker] = useState<Speaker | null>(null);
-  const { t, language } = useLanguage(); // Hook do idioma
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % speakersData.length);
+    setCurrentIndex((prev) => (prev + 1) % speakers.length);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + speakersData.length) % speakersData.length);
-  };
-
-  // Função auxiliar para pegar o título traduzido com segurança
-  const getTranslatedTitle = (key: string) => {
-    // @ts-ignore - Acesso dinâmico ao objeto de traduções
-    return t.speakers.role[key] || key;
+    setCurrentIndex((prev) => (prev - 1 + speakers.length) % speakers.length);
   };
 
   return (
     <section id="palestrantes" className="py-24 bg-secondary">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-light text-foreground text-center mb-16">
-          {t.speakers.title}
+          Palestrantes (Preliminar)
         </h2>
 
         {/* Desktop Grid */}
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {speakersData.map((speaker) => (
+          {speakers.map((speaker) => (
             <button
               key={speaker.id}
               onClick={() => setSelectedSpeaker(speaker)}
@@ -184,7 +144,7 @@ const QuasarSpeakers = () => {
                 {speaker.name}
               </h3>
               <p className="text-sm text-muted-foreground mb-1">
-                {getTranslatedTitle(speaker.titleKey)}
+                {speaker.title}
               </p>
               <p className="text-sm text-muted-foreground">
                 {speaker.institution}
@@ -200,7 +160,7 @@ const QuasarSpeakers = () => {
               className="flex transition-transform duration-300 ease-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
-              {speakersData.map((speaker) => (
+              {speakers.map((speaker) => (
                 <button
                   key={speaker.id}
                   onClick={() => setSelectedSpeaker(speaker)}
@@ -218,7 +178,7 @@ const QuasarSpeakers = () => {
                       {speaker.name}
                     </h3>
                     <p className="text-sm text-muted-foreground mb-1">
-                      {getTranslatedTitle(speaker.titleKey)}
+                      {speaker.title}
                     </p>
                     <p className="text-sm text-muted-foreground">
                       {speaker.institution}
@@ -239,7 +199,7 @@ const QuasarSpeakers = () => {
               <ChevronLeft className="h-5 w-5" />
             </button>
             <div className="flex gap-2">
-              {speakersData.map((_, idx) => (
+              {speakers.map((_, idx) => (
                 <div
                   key={idx}
                   className={`w-2 h-2 rounded-full transition-colors ${
@@ -277,14 +237,13 @@ const QuasarSpeakers = () => {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-foreground mb-1">
-                    {getTranslatedTitle(selectedSpeaker.titleKey)}
+                    {selectedSpeaker.title}
                   </p>
                   <p className="text-sm text-muted-foreground mb-4">
                     {selectedSpeaker.institution}
                   </p>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {/* Exibe a bio baseada no idioma selecionado */}
-                    {language === 'pt' ? selectedSpeaker.bioPt : selectedSpeaker.bioEn}
+                    {selectedSpeaker.bio}
                   </p>
                 </div>
               </div>
