@@ -231,13 +231,14 @@ const QuasarSpeakers = () => {
           >
             <CarouselContent className="-ml-4 pb-8">
               {speakers.map((speaker) => (
-                <CarouselItem key={speaker.id} className="pl-4 basis-[85%] sm:basis-[60%]">
+                <CarouselItem key={speaker.id} className="pl-4 basis-[90%] sm:basis-[60%]">
                   <button
                     onClick={() => setSelectedSpeaker(speaker)}
                     className="w-full h-full text-left group"
                   >
                     <div className="bg-background rounded-2xl overflow-hidden border border-border/50 shadow-sm transition-all duration-300 active:scale-[0.98] h-full flex flex-col">
-                      <div className="aspect-[4/3] overflow-hidden relative">
+                      {/* Mudado de aspect-[4/3] para aspect-square para aumentar a altura */}
+                      <div className="aspect-square overflow-hidden relative">
                         <img
                           src={speaker.image}
                           alt={speaker.name}
