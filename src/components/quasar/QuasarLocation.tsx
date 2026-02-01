@@ -8,18 +8,10 @@ const QuasarLocation = () => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Nome exato do local para busca no Google Maps.
-  // Isso garante que o pino seja marcado na entidade correta (Estação Ciência).
+  // Nome para busca e links (mantendo a lógica da resposta anterior)
   const mapQueryName = encodeURIComponent("Estação Cabo Branco - Ciência, Cultura e Artes");
-
-  // Link para abrir o site/app do Google Maps (Botão "Abrir no Google Maps")
-  const googleMapsExternalUrl = `https://www.google.com/maps/search/?api=1&query=${mapQueryName}`;
-
-  // URL para o Iframe (Mapa incorporado)
-  // q = termo de busca (nome do local)
-  // z = zoom (16 é um bom nível para prédios)
-  // output = embed (necessário para iframes)
-  const mapEmbedUrl = `https://maps.google.com/maps?q=${mapQueryName}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+  const googleMapsExternalUrl = `https://www.google.com/maps/search/?api=1&query=$${mapQueryName}`;
+  const mapEmbedUrl = `https://maps.google.com/maps?q=$${mapQueryName}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
 
   return (
     <section id="local" className="py-24 bg-secondary">
@@ -44,7 +36,6 @@ const QuasarLocation = () => {
         <div className="max-w-4xl mx-auto">
           <div className="aspect-video w-full bg-muted rounded-xl overflow-hidden border border-border relative">
             
-            {/* Fallback UI: Aparece se o mapa falhar */}
             {hasError ? (
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-card p-6 text-center animate-in fade-in duration-300">
                 <div className="bg-primary/10 p-4 rounded-full mb-4">
@@ -56,13 +47,13 @@ const QuasarLocation = () => {
                 </p>
                 <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
                   <a href={googleMapsExternalUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                    Abrir no Google Maps
+                    {/* TRADUÇÃO AQUI */}
+                    {t.location.openMaps}
                     <ExternalLink className="w-4 h-4" />
                   </a>
                 </Button>
               </div>
             ) : (
-              /* Iframe usando query por nome */
               <iframe
                 src={mapEmbedUrl}
                 width="100%"
@@ -81,7 +72,6 @@ const QuasarLocation = () => {
               />
             )}
             
-            {/* Loading Skeleton */}
             {isLoading && !hasError && (
               <div className="absolute inset-0 flex items-center justify-center bg-muted animate-pulse">
                 <MapPin className="w-8 h-8 text-muted-foreground/50" />
@@ -89,11 +79,12 @@ const QuasarLocation = () => {
             )}
           </div>
           
-          {/* Botão auxiliar para mobile (sempre visível) */}
+          {/* Botão Mobile */}
           <div className="mt-4 text-center md:hidden">
             <Button variant="outline" size="sm" asChild className="w-full">
               <a href={googleMapsExternalUrl} target="_blank" rel="noopener noreferrer">
-                Abrir rota no App de Mapas
+                {/* TRADUÇÃO AQUI */}
+                {t.location.openMapsApp}
               </a>
             </Button>
           </div>

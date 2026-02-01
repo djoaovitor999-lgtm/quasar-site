@@ -67,7 +67,9 @@ export const translations = {
     },
     location: {
       title: "Local do Evento",
-      place: "Estação Ciência, Cultura e Artes"
+      place: "Estação Ciência, Cultura e Artes",
+      openMaps: "Abrir no Google Maps",        // <--- Novo
+      openMapsApp: "Abrir rota no App de Mapas" // <--- Novo
     },
     registration: {
       title: "Inscrição",
@@ -148,7 +150,9 @@ export const translations = {
     },
     location: {
       title: "Event Location",
-      place: "Science, Culture and Arts Station"
+      place: "Science, Culture and Arts Station",
+      openMaps: "Open in Google Maps",         // <--- New
+      openMapsApp: "Open Route in Maps App"    // <--- New
     },
     registration: {
       title: "Registration",
