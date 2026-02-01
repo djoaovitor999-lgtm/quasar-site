@@ -79,7 +79,8 @@ export const translations = {
       fallbackText: "Para garantir a melhor experiência e segurança, acesse o formulário de inscrição diretamente na plataforma oficial.",
       button: "Inscrever-se no Even3",
       secure: "Ambiente seguro processado por Even3. Seus dados estão protegidos.",
-      openExternal: "Abrir direto no Even3" // Adicionado
+      openExternal: "Abrir direto no Even3",
+      orFillBelow: "Ou preencha abaixo" // Adicionado
     },
     footer: {
       support: "Apoio",
@@ -165,7 +166,8 @@ export const translations = {
       fallbackText: "To ensure the best experience and security, please access the registration form directly on the official platform.",
       button: "Register via Even3",
       secure: "Secure transaction processed by Even3. Your data is protected.",
-      openExternal: "Open directly on Even3" // Adicionado
+      openExternal: "Open directly on Even3",
+      orFillBelow: "Or fill out below" 
     },
     footer: {
       support: "Support",
