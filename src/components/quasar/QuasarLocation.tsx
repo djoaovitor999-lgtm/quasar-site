@@ -8,19 +8,22 @@ const QuasarLocation = () => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Coordenadas exatas da Estação Cabo Branco - Ciência, Cultura e Artes
-  const latitude = -7.149562;
-  const longitude = -34.798010;
+  // Coordenadas exatas da Estação Cabo Branco (Edifício Niemeyer)
+  const latitude = -7.147653;
+  const longitude = -34.798953;
 
   // Link para abrir diretamente no app/site do Google Maps (Botão)
   const mapQueryName = encodeURIComponent("Estação Cabo Branco - Ciência, Cultura e Artes");
   
-  // CORREÇÃO: Sintaxe consertada para usar template string (${...}) e URL oficial
+  // CORREÇÃO: URL padrão de busca do Google Maps
   const googleMapsExternalUrl = `https://www.google.com/maps/search/?api=1&query=${mapQueryName}`;
 
-  // URL do Iframe usando as coordenadas para evitar ambiguidade.
-  // CORREÇÃO: URL padrão do Google Maps para embed (sem API Key obrigatória para visualização simples)
-  const mapEmbedUrl = `https://maps.google.com/maps?q=${latitude},${longitude}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+  // CORREÇÃO: URL correta para Iframe (Embed) usando coordenadas
+  // q = query (latitude,longitude)
+  // z = zoom
+  // output = embed (para funcionar no iframe)
+  // hl = pt-br (força interface em português)
+  const mapEmbedUrl = `https://maps.google.com/maps?q=${latitude},${longitude}&hl=pt-br&z=16&ie=UTF8&iwloc=&output=embed`;
 
   return (
     <section id="local" className="py-24 bg-secondary">
