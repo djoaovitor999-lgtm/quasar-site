@@ -8,9 +8,20 @@ const QuasarLocation = () => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Coordenadas exatas da Estação Cabo Branco (Edifício Niemeyer)
+  // Latitude: -7.147653, Longitude: -34.798953
+  const latitude = -7.147653;
+  const longitude = -34.798953;
+
   // Link para abrir diretamente no app/site do Google Maps (Botão)
-  const mapQuery = encodeURIComponent("Estação Cabo Branco - Ciência, Cultura e Artes");
-  const googleMapsExternalUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+  // Usamos 'query' com o nome para busca no app, que costuma ser mais amigável,
+  // mas você pode trocar por `${latitude},${longitude}` se preferir o pino exato também no botão.
+  const mapQueryName = encodeURIComponent("Estação Cabo Branco - Ciência, Cultura e Artes");
+  const googleMapsExternalUrl = `https://www.google.com/maps/search/?api=1&query=${mapQueryName}`;
+
+  // URL do Iframe usando as coordenadas para evitar ambiguidade e mostrar apenas o local correto.
+  // z=16 define o nível de zoom (mais próximo para focar no prédio principal).
+  const mapEmbedUrl = `https://maps.google.com/maps?q=${latitude},${longitude}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
 
   return (
     <section id="local" className="py-24 bg-secondary">
@@ -53,9 +64,9 @@ const QuasarLocation = () => {
                 </Button>
               </div>
             ) : (
-              /* Iframe com o endereço CORRETO da Estação Cabo Branco */
+              /* Iframe com as coordenadas exatas */
               <iframe
-                src="https://maps.google.com/maps?q=Esta%C3%A7%C3%A3o+Cabo+Branco+-+Ci%C3%AAncia,+Cultura+e+Artes,+Jo%C3%A3o+Pessoa&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                src={mapEmbedUrl}
                 width="100%"
                 height="100%"
                 style={{ border: 0, opacity: isLoading ? 0 : 1, transition: 'opacity 0.3s' }}
