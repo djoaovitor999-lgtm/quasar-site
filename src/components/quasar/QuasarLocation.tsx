@@ -8,9 +8,9 @@ const QuasarLocation = () => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Endereço codificado para URL
+  // Link para abrir diretamente no app/site do Google Maps (Botão)
   const mapQuery = encodeURIComponent("Estação Cabo Branco - Ciência, Cultura e Artes");
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+  const googleMapsExternalUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
 
   return (
     <section id="local" className="py-24 bg-secondary">
@@ -35,27 +35,27 @@ const QuasarLocation = () => {
         <div className="max-w-4xl mx-auto">
           <div className="aspect-video w-full bg-muted rounded-xl overflow-hidden border border-border relative">
             
-            {/* Fallback UI: Aparece se houver erro */}
+            {/* Fallback UI: Aparece se o mapa falhar */}
             {hasError ? (
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-card p-6 text-center">
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-card p-6 text-center animate-in fade-in duration-300">
                 <div className="bg-primary/10 p-4 rounded-full mb-4">
                   <MapIcon className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-lg font-medium mb-2">Não foi possível carregar o mapa</h3>
+                <h3 className="text-lg font-medium mb-2">Ver localização no mapa</h3>
                 <p className="text-muted-foreground mb-6 max-w-sm">
-                  Para visualizar a localização exata do evento, abra diretamente no Google Maps.
+                  Não foi possível carregar a visualização aqui. Abra diretamente no Google Maps.
                 </p>
                 <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                  <a href={googleMapsExternalUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                     Abrir no Google Maps
                     <ExternalLink className="w-4 h-4" />
                   </a>
                 </Button>
               </div>
             ) : (
-              /* Iframe do Mapa */
+              /* Iframe com o endereço CORRETO da Estação Cabo Branco */
               <iframe
-                src="https://www.google.com/maps/place/Esta%C3%A7%C3%A3o+Cabo+Branco+-+Ci%C3%AAncia,+Cultura+e+Artes/@-7.1495621,-34.7980095,17z/data=!3m1!4b1!4m6!3m5!1s0x7acc3156da82885:0x488b41b7d2620033!8m2!3d-7.1495621!4d-34.7980095!16s%2Fg%2F1230vdlt?entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D" // Substituí por um embed genérico da Estação Cabo Branco/Altiplano como exemplo. Você deve colocar o embed real aqui.
+                src="https://maps.google.com/maps?q=Esta%C3%A7%C3%A3o+Cabo+Branco+-+Ci%C3%AAncia,+Cultura+e+Artes,+Jo%C3%A3o+Pessoa&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0, opacity: isLoading ? 0 : 1, transition: 'opacity 0.3s' }}
@@ -65,13 +65,14 @@ const QuasarLocation = () => {
                 title={t.location.place}
                 onLoad={() => setIsLoading(false)}
                 onError={() => {
+                  console.log("Erro ao carregar mapa");
                   setHasError(true);
                   setIsLoading(false);
                 }}
               />
             )}
             
-            {/* Loading Skeleton enquanto carrega */}
+            {/* Loading Skeleton */}
             {isLoading && !hasError && (
               <div className="absolute inset-0 flex items-center justify-center bg-muted animate-pulse">
                 <MapPin className="w-8 h-8 text-muted-foreground/50" />
@@ -79,10 +80,10 @@ const QuasarLocation = () => {
             )}
           </div>
           
-          {/* Botão extra para mobile (sempre visível abaixo do mapa para garantir) */}
+          {/* Botão auxiliar para mobile (sempre visível) */}
           <div className="mt-4 text-center md:hidden">
             <Button variant="outline" size="sm" asChild className="w-full">
-              <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
+              <a href={googleMapsExternalUrl} target="_blank" rel="noopener noreferrer">
                 Abrir rota no App de Mapas
               </a>
             </Button>
