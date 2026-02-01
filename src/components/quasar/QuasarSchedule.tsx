@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Clock, Coffee, Mic, Users, ArrowRight, Quote, X, Calendar } from "lucide-react"; // Zap foi removido dos imports
+import { Clock, Coffee, Mic, Users, ArrowRight, Quote, X, Calendar, Ticket } from "lucide-react"; //
 import { cn } from "@/lib/utils";
 import QuasarLogo from "@/assets/quasar.png";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -106,6 +106,9 @@ const QuasarSchedule = () => {
     
     // Renderização do Break (Intervalo)
     if (item.type === "break") {
+       // Lógica para escolher o ícone: Ticket para checkin, Coffee para os outros
+       const BreakIcon = item.titleKey === 'checkin' ? Ticket : Coffee;
+
        return (
         <div key={index} className="relative py-6 flex items-center justify-center group select-none">
           <div className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent group-hover:via-muted-foreground/30 transition-all duration-500"></div>
@@ -113,7 +116,7 @@ const QuasarSchedule = () => {
             <span className="font-mono text-sm md:text-base opacity-90 font-medium text-foreground">{item.time}</span>
             <div className="w-1.5 h-1.5 rounded-full bg-primary/40"></div>
             <span className="uppercase tracking-wide text-xs md:text-sm font-bold flex items-center gap-2.5 text-foreground/80">
-              <Coffee className="w-4 h-4 flex-shrink-0 text-primary/70" />
+              <BreakIcon className="w-4 h-4 flex-shrink-0 text-primary/70" />
               {title}
             </span>
           </div>
