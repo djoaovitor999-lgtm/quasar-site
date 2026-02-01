@@ -8,17 +8,17 @@ const QuasarLocation = () => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Alteração: Removidas latitude e longitude.
-  // Usamos apenas o nome do local para que o Google encontre a entidade correta.
+  // Nome exato do local para busca no Google Maps.
+  // Isso garante que o pino seja marcado na entidade correta (Estação Ciência).
+  const mapQueryName = encodeURIComponent("Estação Cabo Branco - Ciência, Cultura e Artes");
 
+  // Link para abrir o site/app do Google Maps (Botão "Abrir no Google Maps")
+  const googleMapsExternalUrl = `https://www.google.com/maps/search/?api=1&query=${mapQueryName}`;
 
-  // Link externo para abrir a pesquisa no site/app do Google Maps
-  const googleMapsExternalUrl = `https://maps.app.goo.gl/Q9UPsdXi4zV4aEBm9`;
-
-  // URL do Iframe baseada no nome (parâmetro q=)
-  // t= (tipo de mapa, vazio é padrão)
-  // z=16 (zoom)
-  // output=embed (formato para iframe)
+  // URL para o Iframe (Mapa incorporado)
+  // q = termo de busca (nome do local)
+  // z = zoom (16 é um bom nível para prédios)
+  // output = embed (necessário para iframes)
   const mapEmbedUrl = `https://maps.google.com/maps?q=${mapQueryName}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
 
   return (
