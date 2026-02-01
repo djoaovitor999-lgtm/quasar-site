@@ -1,10 +1,22 @@
-import { useState, useEffect } from "react";
-import { Ticket, ShieldCheck, Loader2, ExternalLink } from "lucide-react";
+import { useEffect } from "react";
+import { Ticket, ShieldCheck, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const QuasarRegistration = () => {
-  const [iframeLoaded, setIframeLoaded] = useState(false);
   const { t } = useLanguage();
+
+  useEffect(() => {
+    // Cria e insere o script do widget do Even3
+    const script = document.createElement("script");
+    script.src = "https://www.even3.com.br/widget/js?e=ii-encontro-quasar-688507&t=ticket&lang=pt";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // Limpeza ao desmontar o componente
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
     <section id="inscricao" className="py-24 bg-background relative overflow-hidden">
@@ -30,18 +42,10 @@ const QuasarRegistration = () => {
           {/* Card Container */}
           <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden relative">
             
-            {/* Loading State */}
-            {!iframeLoaded && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-card z-10 space-y-4">
-                <Loader2 className="w-8 h-8 text-primary animate-spin" />
-                <p className="text-sm text-muted-foreground">{t.registration.loading}</p>
-              </div>
-            )}
-
-            {/* BOTÃO MOBILE (NOVO) */}
+            {/* BOTÃO MOBILE (Link Atualizado) */}
             <div className="md:hidden p-6 pb-2">
               <a
-                href="https://www.even3.com.br/ii-encontro-quasar-526038/"
+                href="https://www.even3.com.br/ii-encontro-quasar-688507/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-full px-6 py-4 bg-[#0097FF] hover:bg-[#007acc] text-white rounded-xl transition-all duration-300 font-bold shadow-lg hover:shadow-xl gap-2 active:scale-95"
@@ -56,34 +60,10 @@ const QuasarRegistration = () => {
               </div>
             </div>
 
-            {/* Iframe Area */}
-            <div className="w-full relative bg-white">
-               {/* Fallback overlay se o iframe não carregar ou se o usuário preferir */}
-               <div className={iframeLoaded ? "hidden" : "hidden md:flex absolute inset-0 flex-col items-center justify-center p-8 text-center bg-card/90 backdrop-blur-sm z-20"}>
-                 <p className="text-muted-foreground mb-6 max-w-md">
-                   {t.registration.fallbackText}
-                 </p>
-                 <a 
-                   href="https://www.even3.com.br/ii-encontro-quasar-526038/" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   className="inline-flex items-center gap-2 px-6 py-3 bg-[#0097FF] hover:bg-[#007acc] text-white rounded-lg transition-colors font-medium shadow-md hover:shadow-lg"
-                 >
-                   <ExternalLink className="w-4 h-4" />
-                   {t.registration.button}
-                 </a>
-               </div>
-
-              <iframe 
-                src="https://www.even3.com.br/ii-encontro-quasar-526038/" 
-                width="100%" 
-                height="1200px" 
-                frameBorder="0"
-                onLoad={() => setIframeLoaded(true)}
-                className="w-full min-h-[600px] md:min-h-[1200px]"
-                title="Inscrição Even3"
-                loading="lazy"
-              ></iframe>
+            {/* Widget Area */}
+            <div className="w-full relative bg-white p-4 md:p-8 min-h-[400px]">
+               {/* Container alvo do script do Even3 */}
+               <div id="even3-widget-ticket"></div>
             </div>
 
             {/* Footer de Segurança */}
