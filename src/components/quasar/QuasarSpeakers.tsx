@@ -237,7 +237,7 @@ const QuasarSpeakers = () => {
           ))}
         </div>
 
-        {/* Mobile Carousel (Mantido como estava) */}
+        {/* Mobile Carousel */}
         <div className="md:hidden -mx-6 px-6">
           <Carousel
             opts={{
@@ -255,15 +255,11 @@ const QuasarSpeakers = () => {
                   >
                     <div className="bg-background rounded-2xl overflow-hidden border border-border/50 shadow-sm transition-all duration-300 active:scale-[0.98] h-full flex flex-col">
                       <div className="aspect-square overflow-hidden relative">
-                        
-                        {/* --- AQUI ESTÁ A MUDANÇA --- */}
                         <img
                           src={speaker.image}
                           alt={speaker.name}
                           className="w-full h-full object-cover transition-all duration-500 group-active:scale-105 grayscale group-active:grayscale-0"
                         />
-                        {/* --------------------------- */}
-
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
                         <div className="absolute bottom-4 left-4 right-4">
                           <p className="text-white/90 text-[10px] uppercase tracking-wider font-semibold mb-1 bg-black/30 backdrop-blur-sm inline-block px-2 py-0.5 rounded-full border border-white/10">
@@ -298,12 +294,14 @@ const QuasarSpeakers = () => {
 
         {/* Speaker Modal */}
         <Dialog open={!!selectedSpeaker} onOpenChange={() => setSelectedSpeaker(null)}>
-          <DialogContent className="max-w-4xl p-0 overflow-y-auto max-h-[90vh] md:max-h-[unset] md:overflow-hidden bg-card border-none shadow-2xl rounded-2xl md:rounded-3xl">
+          {/* Adicionado overflow-x-hidden e overflow-y-auto */}
+          <DialogContent className="max-w-4xl p-0 overflow-y-auto overflow-x-hidden max-h-[90vh] md:max-h-[unset] md:overflow-hidden bg-card border-none shadow-2xl rounded-2xl md:rounded-3xl">
             {selectedSpeaker && (
               <div className="flex flex-col md:flex-row">
                 
                 {/* Coluna da Imagem */}
-                <div className="relative w-full md:w-2/5 aspect-square md:aspect-auto md:h-auto md:min-h-[450px] group flex-shrink-0">
+                {/* Alterado de aspect-square para aspect-video no mobile para ocupar menos altura */}
+                <div className="relative w-full md:w-2/5 aspect-video md:aspect-auto md:h-auto md:min-h-[450px] group flex-shrink-0">
                   <img
                     src={selectedSpeaker.image}
                     alt={selectedSpeaker.name}
@@ -313,7 +311,8 @@ const QuasarSpeakers = () => {
                 </div>
 
                 {/* Coluna de Conteúdo */}
-                <div className="w-full md:w-3/5 p-6 md:p-10 flex flex-col justify-center bg-background/95 backdrop-blur-sm relative">
+                {/* Ajustado padding para p-5 no mobile */}
+                <div className="w-full md:w-3/5 p-5 md:p-10 flex flex-col justify-center bg-background/95 backdrop-blur-sm relative">
                    
                    <div className="mb-6 md:mb-8 md:pr-8">
                       <div className="inline-flex items-center gap-2 mb-4">
