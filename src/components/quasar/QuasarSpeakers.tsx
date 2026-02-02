@@ -300,7 +300,7 @@ const QuasarSpeakers = () => {
               <div className="flex flex-col md:flex-row">
                 
                 {/* Coluna da Imagem */}
-                {/* Alterado de aspect-square para aspect-video no mobile para ocupar menos altura */}
+                {/* Alterado de aspect-square para aspect-video no mobile para ocupar menos altura*/}
                 <div className="relative w-full md:w-2/5 aspect-video md:aspect-auto md:h-auto md:min-h-[450px] group flex-shrink-0">
                   <img
                     src={selectedSpeaker.image}
