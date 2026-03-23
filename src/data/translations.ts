@@ -13,14 +13,14 @@ export const translations = {
       dateLocation: "Julho/Agosto 2026 • João Pessoa",
       titlePrefix: "II Encontro",
       TitleSuffix: "",
-      subtitle: "Inauguração do Centro Internacional de Computação Quântica (CIQUANTA)",
+      subtitle: "", 
       cta: "GARANTIR PRESENÇA",
       scroll: "Descubra",
     },
     about: {
       title: "Sobre o Evento",
       p1: "O <strong>II Encontro Quasar</strong> será realizado em João Pessoa (PB), no auditório da Estação Ciências. Nesta segunda edição, o evento consolida o Encontro Quasar como um <strong>espaço de formação, debate técnico e articulação científica</strong> em tecnologias quânticas, acompanhando a <strong>rápida expansão da área</strong> no cenário nacional e internacional e conectando pesquisa, capacitação e construção de redes.",
-      p2: "Esta edição se insere diretamente no <strong>fortalecimento do ecossistema local de computação quântica</strong>, em diálogo com iniciativas estratégicas como o CIQUANTA (International Centre for Quantum Computing), que vem impulsionando <strong>infraestrutura, colaboração e visibilidade internacional</strong> para a pesquisa na Paraíba.",
+      p2: "Esta edição se insere diretamente no <strong>fortalecimento do ecossistema local de computação quântica</strong>, impulsionando <strong>infraestrutura, colaboração e visibilidade internacional</strong> para a pesquisa na Paraíba.",
       p3: "A realização do II Encontro Quasar é resultado direto da experiência bem-sucedida da primeira edição, que aproximou pesquisadores, estudantes e profissionais de diferentes instituições e áreas relacionadas às tecnologias quânticas.",
       p4: "Ao dar continuidade a essa trajetória, o II Encontro Quasar fortalece a <strong>integração entre grupos de pesquisa</strong>, estimula a produção científica e a formação avançada, e amplia o interesse da comunidade acadêmica e do público em geral por tecnologias quânticas."
     },
@@ -48,7 +48,7 @@ export const translations = {
       },
       descriptions: {
         checkin: "Recepção dos participantes, entrega de credenciais e materiais do evento. Aproveite este momento para um café de boas-vindas.",
-        opening: "Cerimônia oficial de abertura com representantes institucionais e apresentação da visão de futuro do Centro Internacional de Computação Quântica.",
+        opening: "Cerimônia oficial de abertura com representantes institucionais e apresentação da visão de futuro para as tecnologias quânticas.",
         talk: "Nesta sessão, especialistas apresentarão avanços recentes, metodologias inovadoras e casos de uso aplicados. Um momento de aprofundamento técnico e teórico.",
         lunch: "Intervalo para almoço livre. Aproveite para explorar a gastronomia local e continuar as conversas com outros participantes.",
         break: "Pausa estratégica para networking, café e troca de ideias entre os participantes e palestrantes.",
@@ -80,7 +80,7 @@ export const translations = {
       button: "Inscrever-se no Even3",
       secure: "Ambiente seguro processado por Even3. Seus dados estão protegidos.",
       openExternal: "Abrir direto no Even3",
-      orFillBelow: "Ou preencha abaixo" // Adicionado
+      orFillBelow: "Ou preencha abaixo"
     },
     footer: {
       support: "Apoio",
@@ -100,14 +100,14 @@ export const translations = {
       dateLocation: "July/August 2026 • João Pessoa",
       titlePrefix: "II",
       TitleSuffix: "Meeting",
-      subtitle: "Inauguration of the International Centre for Quantum Computing (CIQUANTA)",
+      subtitle: "", 
       cta: "SECURE YOUR SPOT",
       scroll: "Discover",
     },
     about: {
       title: "About the Event",
       p1: "The <strong>II Quasar Meeting</strong> will be hosted at the Estação Ciências Auditorium in João Pessoa (PB). This edition establishes the event as a premier <strong>hub for education, technical debate, and scientific collaboration</strong> in quantum technologies, keeping pace with the <strong>rapid global expansion of the field</strong> while connecting research and professional networks.",
-      p2: "This event plays a key role in <strong>strengthening the local quantum computing ecosystem</strong>, aligned with strategic initiatives like CIQUANTA (International Centre for Quantum Computing), which drives <strong>infrastructure, collaboration, and international visibility</strong> for research in Paraíba.",
+      p2: "This event plays a key role in <strong>strengthening the local quantum computing ecosystem</strong>, driving <strong>infrastructure, collaboration, and international visibility</strong> for research in Paraíba.",
       p3: "The <strong>II Quasar Meeting</strong> builds directly on the success of the inaugural edition, which connected researchers, students, and professionals from diverse institutions and fields within quantum technology.",
       p4: "Continuing this momentum, the event strengthens <strong>collaboration between research groups</strong>, fosters scientific output and advanced training, and broadens engagement with quantum technologies among both the academic community and the general public."
     },
@@ -135,7 +135,7 @@ export const translations = {
       },
       descriptions: {
         checkin: "Participant reception, badge collection, and event materials distribution. Enjoy a welcome coffee.",
-        opening: "Official opening ceremony with institutional representatives and presentation of the future vision for the International Centre for Quantum Computing.",
+        opening: "Official opening ceremony with institutional representatives and presentation of the future vision for quantum technologies.",
         talk: "In this session, experts will present recent advancements, innovative methodologies, and applied use cases. A moment for technical and theoretical deep dive.",
         lunch: "Lunch break. Take this time to explore local cuisine and continue conversations with other attendees.",
         break: "Strategic break for networking, coffee, and idea exchange between participants and speakers.",
