@@ -10,7 +10,7 @@ export const translations = {
       registration: "Inscrição",
     },
     hero: {
-      dateLocation: "Julho/Agosto 2026 • João Pessoa",
+      dateLocation: "27 e 28 de Julho de 2026 • João Pessoa",
       titlePrefix: "II Encontro",
       TitleSuffix: "",
       subtitle: "", 
@@ -97,7 +97,7 @@ export const translations = {
       registration: "Registration",
     },
     hero: {
-      dateLocation: "July/August 2026 • João Pessoa",
+      dateLocation: "July 27-28, 2026 • João Pessoa",
       titlePrefix: "II",
       TitleSuffix: "Meeting",
       subtitle: "", 
