@@ -27,7 +27,7 @@ const QuasarSchedule = () => {
   const scheduleData: DaySchedule[] = [
     {
       dayKey: "day1",
-      date: t.hero.dateLocation.split("•")[0].trim(),
+      date: t.schedule.daySubtitle,
       items: [
         { time: "09:00", titleKey: "checkin", type: "break" },
         { time: "09:45", titleKey: "opening", type: "ceremony" },
@@ -44,7 +44,7 @@ const QuasarSchedule = () => {
     },
     {
       dayKey: "day2",
-      date: t.hero.dateLocation.split("•")[0].trim(),
+      date: t.schedule.daySubtitle,
       items: [
         { time: "09:00", titleKey: "checkin", type: "break" },
         { time: "09:45", titleKey: "talk", speaker: "...", type: "talk" },

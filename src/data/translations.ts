@@ -38,8 +38,9 @@ export const translations = {
       badge: "Agenda Oficial 2026",
       title: "Cronograma",
       description: "Confira a programação completa de palestras, painéis e atividades estratégicas previstas para o evento.",
-      day1: "Dia 1",
-      day2: "Dia 2",
+      day1: "27",
+      day2: "28",
+      daySubtitle: "Julho de 2026",
       seeMore: "Ver mais",
       modal: {
         aboutActivity: "Sobre a atividade",
@@ -125,8 +126,9 @@ export const translations = {
       badge: "Official Agenda 2026",
       title: "Schedule",
       description: "Explore the full schedule of talks, panels, and strategic activities planned for the event.",
-      day1: "Day 1",
-      day2: "Day 2",
+      day1: "27",
+      day2: "28",
+      daySubtitle: "July 2026",
       seeMore: "See more",
       modal: {
         aboutActivity: "About the activity",
